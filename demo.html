@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+
+<html>
+	
+	<head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Strict Fibonacci Heap</title>
+        <script src="d3.js"></script>
+        <style>
+
+          svg {
+              border: 1px solid black;
+          }
+
+          .link {
+              fill: none;
+              stroke: #ccc;
+              stroke-width: 2px;
+            }
+
+
+          .queueLink {
+              fill: none;
+              stroke: #ccc;
+              stroke-width: 2px;
+            }
+
+            .queueNode {
+              stroke: #ccc;
+              stroke-width: 2px;
+            }
+
+            .node {
+              stroke: #ccc;
+              stroke-width: 2px;
+            }
+
+            .node text { font: 12px sans-serif; }
+
+      </style>
+
+    </head>
+
+    <body>
+
+    	<div id = nav>
+    	</div>
+
+		<div id = title>
+		<h1> Strict Fibonacci Heaps</h1>
+		</div>
+
+    <div>
+    <button id = "insertOne" onclick="insertOne()"> Insert One </button>
+    <input id = "key" type="text"><br>
+    <button id = "insertTwo" onclick="insertTwo()"> Insert Two </button>
+    <button id = "merge" onclick="mergeTwo()"> Merge </button>
+    <button id = "delete" onclick="deleteOne()"> DeleteMin </button>
+    <button id = "decrease" onclick="decreaseOne()"> DecreaseKey </button>
+    <input id = "dkey" type="text"><br>
+    </div>
+    <div>
+  		<svg id="body">
+  		</svg>
+    </div>
+
+
+	</body>
+  <script src="sfh.js"></script>
+
+</html>
