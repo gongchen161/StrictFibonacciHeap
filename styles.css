@@ -1,0 +1,62 @@
+#title{
+  margin-top: 70px;
+}
+img {
+  max-width:60%;
+  height: auto;
+}
+#nav ul {
+  list-style-type: none;
+  margin: 0px;
+  padding: 10px;
+  padding-left: 0;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background-color: #f3f3f3;
+}
+#nav li {
+  float: left;
+  color: black;
+}
+
+#nav li a:hover {
+  background-color: yellow;
+}
+
+#nav a {
+  display: block;
+  padding: 8px;
+}
+
+
+svg {
+    border: 1px solid black;
+}
+
+.link {
+    fill: none;
+    stroke: #ccc;
+    stroke-width: 2px;
+  }
+
+
+.queueLink {
+    fill: none;
+    stroke: #ccc;
+    stroke-width: 2px;
+  }
+
+.queueNode {
+  stroke: #ccc;
+  stroke-width: 2px;
+}
+
+.node {
+  stroke: #ccc;
+  stroke-width: 2px;
+}
+
+.node text { 
+  font: 12px sans-serif; 
+}

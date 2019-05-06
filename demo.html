@@ -1,57 +1,31 @@
 <!DOCTYPE html>
 
 <html>
-	
-	<head>
+  
+  <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Strict Fibonacci Heap</title>
         <script src="d3.js"></script>
-        <style>
-
-          svg {
-              border: 1px solid black;
-          }
-
-          .link {
-              fill: none;
-              stroke: #ccc;
-              stroke-width: 2px;
-            }
-
-
-          .queueLink {
-              fill: none;
-              stroke: #ccc;
-              stroke-width: 2px;
-            }
-
-            .queueNode {
-              stroke: #ccc;
-              stroke-width: 2px;
-            }
-
-            .node {
-              stroke: #ccc;
-              stroke-width: 2px;
-            }
-
-            .node text { font: 12px sans-serif; }
-
-      </style>
-
+        <link rel="stylesheet" href="styles.css">
     </head>
 
     <body>
 
-    	<div id = nav>
-    	</div>
+    <div id = nav>
+      <ul>
+         <li><a href="index.html" title="Home">OVERVIEW</a></li>
+         <li><a href="definitions.html" title="Home">DEFINITIONS</a></li>
+         <li><a href="invariants.html" title="Home">INVARIANTS</a></li>
+         <li><a href="operations.html" title="Home">OPERATIONS</a></li>
+         <li><a href="demo.html" title="Home">DEMO</a></li>
+      </ul>
+    </div>
 
-		<div id = title>
-		<h1> Strict Fibonacci Heaps</h1>
-		</div>
+    <div id = title>
+      <h1> Overview</h1> 
+    </div>
 
-    <div>
     <button id = "insertOne" onclick="insertOne()"> Insert One </button>
     <input id = "key" type="text"><br>
     <button id = "insertTwo" onclick="insertTwo()"> Insert Two </button>
@@ -59,7 +33,8 @@
     <button id = "delete" onclick="deleteOne()"> DeleteMin </button>
     <button id = "decrease" onclick="decreaseOne()"> DecreaseKey </button>
     <input id = "dkey" type="text"><br>
-    </div>
+
+    
     <div>
   		<svg id="body">
   		</svg>

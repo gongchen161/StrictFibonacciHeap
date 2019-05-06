@@ -7,39 +7,43 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Strict Fibonacci Heap</title>
         <script src="d3.js"></script>
+        <link rel="stylesheet" href="styles.css">
     </head>
 
     <body>
 
-    	<div id = nav>
-    		 <a href="index.html" title="Home"><p>INTRODUCTION</p></a>
-    		 <a href="invariants.html" title="Home"><p>INVARIANTS</p></a>
-    	</div>
+    <div id = nav>
+      <ul>
+         <li><a href="index.html" title="Home">OVERVIEW</a></li>
+         <li><a href="definitions.html" title="Home">DEFINITIONS</a></li>
+         <li><a href="invariants.html" title="Home">INVARIANTS</a></li>
+         <li><a href="operations.html" title="Home">OPERATIONS</a></li>
+         <li><a href="demo.html" title="Home">DEMO</a></li>
+      </ul>
+    </div>
 
-		<div id = title>
-		<h1> Strict Fibonacci Heaps</h1>
-		</div>
+    <div id = title>
+      <h1> Overview</h1> 
+    </div>
 
-		<svg id="a">
-		</svg>
+    <div id = body>
+      <p> Strict Fibonacci Heap is the first pointer-based heap implementation that matches the time bounds of Fibonacci heaps in the <b>worst case</b></p>
 
+      <img src="time.png">
+
+      <p> The general structure is </p>
+       <img src="tree.png" style="float:left; max-width:30%">
+      <ul>
+        <li><p>One heap-ordered tree with N nodes</p></li>
+        <li><p>Minimum at root</p></li>
+        <li><p>A node can be either an Active/White node or a Passive/Red node</p></li>
+        <li><p>All nodes have O(logN) degree</p></li>
+         <li><p>All non-root nodes are also maintained in a queue(Q) with position i</p></li>
+        <li><p>Root is always passive</p></li>
+      </ul>
+
+    </div>
 
 	</body>
-
-	<script> 
-		let g = d3.select("#a").append("g");
-		g.append("text")
- 			.attr("transform",
-                        "translate(" + 50 + " ,"  + 50 + ")")
-             .style("text-anchor", "middle")
-                  .style("font", "24px times")
-                  .style("font-weight", "bold")
-		.text("test");
-
-              
-         
-
-	</script>
-
 
 </html>

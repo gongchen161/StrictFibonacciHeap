@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+
+<html>
+	
+	<head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Strict Fibonacci Heap</title>
+        <script src="d3.js"></script>
+        <link rel="stylesheet" href="styles.css">
+    </head>
+
+    <body>
+
+    <div id = nav>
+      <ul>
+         <li><a href="index.html" title="Home">OVERVIEW</a></li>
+         <li><a href="index.html" title="Home">DEFINITIONS</a></li>
+         <li><a href="invariants.html" title="Home">INVARIANTS</a></li>
+         <li><a href="operations.html" title="Home">OPERATIONS</a></li>
+         <li><a href="demo.html" title="Home">DEMO</a></li>
+      </ul>
+    </div>
+
+    <div id = title>
+      <h1>Definitions</h1> 
+    </div>
+
+    <div id = body>
+     
+     <fieldset>
+      <h2> Rank</h2>
+      <img src="rank.png" style="float:left; max-width:30%">
+      <ul>
+        <li><p>Number of Active children</p></li>
+        <li><p>Only defined for Active/White Nodes</p></li>
+        <li><p>Undefined for Passive/Red Nodes</p></li>
+      </ul>
+     
+     </fieldset>
+
+      <fieldset>
+      <h2>Active Root</h2>
+      <img src="activeRoot.png" style="float:left; max-width:30%">
+      <ul>
+        <li><p>An Active/White node with Passiive/Red parent</p></li>
+        <li><p>e.g. Node 2, 7, 8</p></li>
+      </ul>
+     
+     </fieldset>
+
+      <fieldset>
+      <h2>Loss</h2>
+      <img src="loss.png" style="float:left; max-width:30%">
+      <ul>
+        <li><p>Number of Active/White children lost</p></li>
+        <li><p>Active roots have loss 0</p></li>
+        <li><p>Only defined for Active/White Nodes</p></li>
+        <li><p>Undefined for Passive/Red Nodes</p></li>
+
+      </ul>
+     
+     </fieldset>
+
+        <fieldset>
+      <h2>Linkable Node</h2>
+      <img src="linkable.png" style="float:left; max-width:30%">
+      <ul>
+        <li><p>All children and itself are passive</p></li>
+        <li><p>Can only be a Passive/White Nodes</p></li>
+        <li><p>e.g. Node 4, 9</p></li>
+
+      </ul>
+     
+     </fieldset>
+
+
+      
+
+     
+    </div>
+
+	</body>
+
+</html>
