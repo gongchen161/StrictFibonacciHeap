@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+
+<html>
+	
+	<head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Strict Fibonacci Heap</title>
+        <script src="d3.js"></script>
+        <link rel="stylesheet" href="styles.css">
+    </head>
+
+    <body>
+
+    <div id = nav>
+      <ul>
+         <li><a href="index.html" title="Home">OVERVIEW</a></li>
+         <li><a href="definitions.html" title="Home">DEFINITIONS</a></li>
+         <li><a href="invariants.html" title="Home">INVARIANTS</a></li>
+         <li><a href="transformations.html" title="Home">TRANSFORMATIONS</a></li>
+         <li><a href="operations.html" title="Home">OPERATIONS</a></li>
+         <li><a href="demo.html" title="Home">DEMO</a></li>
+      </ul>
+    </div>
+ 
+
+    <div id = title>
+      <h1>Transformations</h1> 
+    </div>
+
+    <div id = body>
+     
+     <fieldset>
+      <h2>Link</h2>
+      <img src="link.png" style="float:left; max-width:50%">
+      <h3>Link node <b>x</b> and <b>y</b></h3>
+      <ul>
+        <li><p>removing x from its original parent, z</p></li>
+        <li><p>If x is active, it's attached to the left of y</p></li>
+        <li><p>If x is passive, it's attached to the right of y</p></li>
+      </ul>
+     
+     </fieldset>
+
+     <fieldset>
+      <h2>Active Root Reduction</h2>
+      <img src="activeRootReduction.png" style="float:left; max-width:50%">
+      <h3>Relink two active roots <b>x</b> and <b>y</b> or equal rank <b>r</b></h3>
+      <ul>
+        <li><p>Compare x and y, w.l.o.g. assume y < x</p></li>
+        <li><p>Link x to y</p></li>
+        <li><p>If the rightmost child z of x is passive, link z to root</p></li>
+      </ul>
+     
+     </fieldset>
+
+     <fieldset>
+      <h2>Root Degree Reduction</h2>
+      <img src="rootDegreeReduction.png" style="float:left; max-width:50%">
+      <h3>Relink three passive linkable nodes <b>x, y, z</b> of the root <b>x</b> and <b>y</b></h3>
+      <ul>
+        <li><p>Assume x, y, z are the 3 rightmost passive linkable children of the root</p></li>
+        <li><p>Assume, w.l.o.g x < y < z</p></li>
+        <li><p>Make x and y active</p></li>
+        <li><p>Link z to y</p></li>
+        <li><p>Link y to z</p></li>
+        <li><p>Since x is active, make x the leftmost child of the root</p></li>
+      </ul>
+     
+     </fieldset>
+
+     <fieldset>
+      <h2>One Node Loss Reduction</h2>
+      <img src="oneNodeLossReduction.png" style="float:left; max-width:50%">
+     <h3>Relink an active node <b>x</b> with loss <b>2</b> to the root <b>x</b> and <b>y</b></h3>
+      <ul>
+        <li><p>Assume x is an active node with loss 2</p></li>
+        <li><p>Link x to the root</p></li>
+      </ul>
+     
+     </fieldset>
+
+
+      <fieldset>
+      <h2>Two Node Loss Reduction</h2>
+      <img src="twoNodeLossReduction.png" style="float:left; max-width:50%">
+       <h3>Relink two active node <b>x, y</b> wwith equal rank <b>r</b> and loss <b>1</b></h3>
+      <ul>
+        <li><p>Assume there are two active nodes x and y</p></li>
+        <li><p>w.l.o.g, x < y</p></li>
+        <li><p>Link y to x</p></li>
+      </ul>
+     
+     </fieldset>
+
+
+ <fieldset>
+      <h2>Summary</h2>
+      <img src="transformationSummary.png" style="float:left; max-width:70%">
+     
+     </fieldset>
+
+      
+
+     
+    </div>
+
+    </body>
+
+</html>

@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 
 <html>
-	
-	<head>
+  
+  <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Strict Fibonacci Heap</title>
@@ -15,8 +15,9 @@
     <div id = nav>
       <ul>
          <li><a href="index.html" title="Home">OVERVIEW</a></li>
-         <li><a href="index.html" title="Home">DEFINITIONS</a></li>
+         <li><a href="definitions.html" title="Home">DEFINITIONS</a></li>
          <li><a href="invariants.html" title="Home">INVARIANTS</a></li>
+         <li><a href="transformations.html" title="Home">TRANSFORMATIONS</a></li>
          <li><a href="operations.html" title="Home">OPERATIONS</a></li>
          <li><a href="demo.html" title="Home">DEMO</a></li>
       </ul>
@@ -28,10 +29,15 @@
 
     <div id = body>
     <p> For convenience, we define R = 2logN + 6</p>
-    <h2> I1: For an active node, the i-th rightmost active child has rank + loss >= i + 1</h2>
 
-    <p> Lemma 1: If I1 is satisfied and the total loss is L, then the maximum rank of a nodes <= logN + SQRT(2L) + 2</p>
-    <p> Proof</p>
+    <fieldset>
+    <h2> I1: For an active node, the i-th rightmost active child has rank + loss >= i - 1</h2>
+
+    <img src="i1.png" style="float:left; max-width:30%">
+
+    <h3> Lemma 1: If I1 is satisfied and the total loss is L, then 
+      <br>MaximumRank(tree) <= logN + <span>&radic;</span><span style="text-decoration:overline;">(2L)</span> + 2</h3>
+    <h4> Proof</h4>
 
     <p>Assume x is an active node with the maximum rank r >= k + 1 + logN, where k is the minimum integer such that k(k+1) / 2 >= L. We will use proof by contradiction that x will be a subtree with size N + 1.</p>
 
@@ -52,25 +58,37 @@
     Thus, by contradiction, the original statement is true.
   </p>
 
-    <h2> I2: The total number of active roots is at most R + 1</h2>
+  </fieldset>
 
+<fieldset>
+    <h2> I2: The total number of active roots is at most R + 1</h2>
+    <img src="i2.png" style="float:left; max-width:30%">
+    <p>e.g. There are 3 active roots in the tree, given N = 9, this is less than R + 1, or 2 log(9) + 1</p>
+
+</fieldset>
+
+<fieldset>
     <h2> I3: The total loss is at most R + 1</h2>
 
-    <p>Lemma 2: All nodes have rank <= R</p>
-    <p> Follow frmo lemma 1,
+    <h3>Lemma 2: Rank(x) <= R for any nodes x in the tree</h3>
+    <h4>Proof</h4>
+    <p> Follow from lemma 1,
     <p> we have L <= R + 1, and we are given R = 2logN + 6</p>
     <p>Then, logN + SQRT(2(R+1)) + 2 =logN + SQRT(4logN + 14) + 2  <= R</p>
     <p> since (SQRT(4logN + 14))^2 <= (logN + 4)^2</p>
     <p>Thus, maximum rank <= R </p>
     </p>
-
+</fieldset>
+<fieldset>
     <h2> I4: deg(root) <= R + 3</h2>
-
+</fieldset>
+<fieldset>
     <h2> I5: deg(non-root) <= 2logN + 12</h2>
+     <img src="i5.png" style="float:left; max-width:50%">
     <p> More specifically, let x be a non-root node, and let p be its position in Q. </p>
     <p> If x is a passive node or an active node with positive loss, and deg(x) <= 2logN(2N - p) + 9</p>
     <p> Otherwise, x is an active node with zero loss, and deg(x) <= 2logN(2N - p) + 10</p>
-
+</fieldset>
 
       
 

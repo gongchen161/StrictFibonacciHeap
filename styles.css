@@ -4,12 +4,25 @@
 img {
   max-width:60%;
   height: auto;
+  margin: 20px;
+  padding: 10px;
 }
+
+span {
+  text-decoration:overline;
+  color: red;
+}
+
+#nav {
+  margin: -10px;
+  width: 100%;
+}
+
 #nav ul {
   list-style-type: none;
-  margin: 0px;
-  padding: 10px;
-  padding-left: 0;
+  margin: 0;
+  padding: 0;
+
   position: fixed;
   top: 0;
   width: 100%;
@@ -18,15 +31,18 @@ img {
 #nav li {
   float: left;
   color: black;
+  margin: 0;
+   padding: 0;
 }
 
 #nav li a:hover {
-  background-color: yellow;
+  background-color: #f4bf42;
+  color: white;
 }
 
 #nav a {
   display: block;
-  padding: 8px;
+  padding: 10px;
 }
 
 
