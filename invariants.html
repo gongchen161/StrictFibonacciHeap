@@ -12,7 +12,7 @@
 
     <body>
 
-    <div id = nav>
+    <div id ="nav">
       <ul>
          <li><a href="index.html" title="Home">OVERVIEW</a></li>
          <li><a href="definitions.html" title="Home">DEFINITIONS</a></li>
@@ -23,71 +23,94 @@
       </ul>
     </div>
 
-    <div id = title>
+    <div id ="title">
       <h1>Invariants</h1> 
     </div>
 
-    <div id = body>
-    <p> For convenience, we define R = 2logN + 6</p>
+    <div id ="body">
+    <p> For the analysis below, we define <i>R = 2logN + 6</i></p>
 
     <fieldset>
-    <h2> I1: For an active node, the i-th rightmost active child has rank + loss >= i - 1</h2>
+    <h2> I1: For an active node, the i-th rightmost active child has <i>rank + loss &ge; i - 1 </i></h2>
 
     <img src="i1.png" style="float:left; max-width:30%">
 
-    <h3> Lemma 1: If I1 is satisfied and the total loss is L, then 
-      <br>MaximumRank(tree) <= logN + <span>&radic;</span><span style="text-decoration:overline;">(2L)</span> + 2</h3>
+    <h3> Lemma 1: If I1 is satisfied and the total loss is <i>L</i>, then the maximum rank of the tree: <br>
+    <i> r &le; logN + &radic;<span style="text-decoration:overline;">2L</span> + 2</i></h3>
     <h4> Proof</h4>
+    <p> We first define <i> k</i> to be the smallest integer such that <i>k(k+1)/2 &ge; L</i></p>
+    <p>We will use proof by contradiction and assume: <br>
+      <i>r &ge; logN + k + 1 </i> </p>
+    <p> Note, <i>logN + k + 1  &le; logN + &radic;<span style="text-decoration:overline;">k*(k+1)</span>+2</i>, so we are proving a stronger statement</p>
 
-    <p>Assume x is an active node with the maximum rank r >= k + 1 + logN, where k is the minimum integer such that k(k+1) / 2 >= L. We will use proof by contradiction that x will be a subtree with size N + 1.</p>
+    <p>Assume <i>x</i> is an active node with the maximum rank <i>r</i>, we will show the contradiction by proving the subtree, <i>Tx</i>, rooted at <i>x</i> has size <i>N + 1</i>.</p>
 
-    <p>We let Tx be the subtree rooted in x. Given I1 is satisfied, i.e. the i-th rightmost active child of x has rank+loss >= i - 1, and the total loss is L. We can notice the minimum subtree that can satisfy this condition is the binomial trees Tb of size 2 ^ r with all nodes being active. Note that we need degree r since x need to have at least r children to have rank r, and we need a binomial tree so that the i-th rightmost active child has rank + loss(0) = i - 1.
-    </p>
+    <p>Given I1 is satisfied, i.e. All active children of the active nodes in <i>Tx</i> has <i>rank+loss &ge; i - 1</i>, and the total loss is <i>L</i>. And given the contradiction, <i>x</i> has at least <i>r</i> active children. We can construct the minimum <i>Tx</i> by starting with a binomial tree of size <i>2<sup>r</sup></i> or root degree <i>r</i> with all nodes being active (we want the minimum, so we should not keep passive nodes). All nodes satisfy I1 by having <i>rank = i-1</i> and <i>loss =0</i></p>
+    <p>To achieve loss <i>L</i> and keep <i>Tx</i> minimal, we will cut the L biggest grandchildren of <i>x</i> (we can't cut children of <i>x</i> because it needs rank <i>r</i> <r></p>
 
-    <p>Now, we want to prunes the nodes in Tb so that it can have loss L and keep the size as small as possible since we want to prove the contradiction that x is at least size N + 1.
-    </p>
-    <p>
-    To achieve the above goals, We need to prune the tree L times, and each time we want to cut the grandchildren of the root with the maximum degrees. We know for an binomial tree, there are j grandchildren of degree r - j - 1, so there are
-    Sum 1 … k (j) = k(k+1)/2 grandchildren of degree >= r - k - 1.
-     </p>
-     <p>
-    Since k(k+1)/2 >= L, We have pruned L times, and no grandchildren of degree < r - k -2 are pruned. That is, the (r-k)-th right-most child w of x has degree r-k-1 > log N and loss 0.
-     </p>
-     <p>
-    Since it’s a binomial tree, size of Tw is N, and the size of Tx is at least N + 1.
-    Thus, by contradiction, the original statement is true.
-  </p>
+    <p>We know, in a binomial heap, there are <i>j</i> grandchildren of degree <i>r - j - 1</i>, so the total number of grandchildren with degree <i>&ge; r - k -1</i> is <br>
+     <i> 1 + 2 + 3 + ... + k = k(k+1)/2 &ge; L </i>
+   </p>
+
+   <p> That is, if we cut all these grandchildren, we definitely have loss <i>L</i>, then all grandchildren of degree <i> &le; r - k - 2</i> are kept in <i>Tx</i>, that is at least one child, <i>w</i>, of <i>x</i> with degree <i> = r - k - 1 &ge; logN</i>
+   is still in Tx, so <i>w</i>  has size <i>&ge; N</i>, or <i>x</i>  has size <i>&ge; N + 1</i>
+
+    <p>Thus, by contradiction, we proved Lemma 1</p>
 
   </fieldset>
 
 <fieldset>
-    <h2> I2: The total number of active roots is at most R + 1</h2>
-    <img src="i2.png" style="float:left; max-width:30%">
-    <p>e.g. There are 3 active roots in the tree, given N = 9, this is less than R + 1, or 2 log(9) + 1</p>
+    <h2> I2: Total loss <i> &le; R + 1</i></h2>
 
-</fieldset>
-
-<fieldset>
-    <h2> I3: The total loss is at most R + 1</h2>
-
-    <h3>Lemma 2: Rank(x) <= R for any nodes x in the tree</h3>
+    <h3>Lemma 2: If I1 and I2 are satisfied, <i>rank(x) &le; R</i> for all active nodes x in the tree</h3>
     <h4>Proof</h4>
-    <p> Follow from lemma 1,
-    <p> we have L <= R + 1, and we are given R = 2logN + 6</p>
-    <p>Then, logN + SQRT(2(R+1)) + 2 =logN + SQRT(4logN + 14) + 2  <= R</p>
-    <p> since (SQRT(4logN + 14))^2 <= (logN + 4)^2</p>
-    <p>Thus, maximum rank <= R </p>
-    </p>
+    <p> Follow from lemma 1 and by I2,
+    <p> we have <i>L &le; R + 1</i>, and we are given R = 2logN + 6</p>
+    <p>Then, the maximum rank <i> r &le; logN + &radic;<span style="text-decoration:overline;">2(R+1)</span> + 2 = logN + &radic;<span style="text-decoration:overline;">4logN + 14</span> + 2  &le; R</i></p>
+    <p> since <i>(&radic;<span style="text-decoration:overline;">4logN + 14</span>)<sup>2</sup> &le; (logN + 4)<sup>2</sup></i></p>
+    <p>Thus, <i> r &le; R</i> </p>
+
+
+    <h3>Lemma 3: If I2 is violated, i.e. <i>L > R + 1</i>, then there exists either a node with loss <i>&ge; 2</i>, or
+      two nodes with equal rank each with loss <i> = 1</i>
+    </h3>
+    <h4>Proof</h4>
+    <p> Given lemma 2 and use the Pigeonhole principle, it should be straight forward to see this is true. i.e. 
+    <p>if there are <i>&le; R + 1</i> nodes, then there is a node with loss <i>&ge; 2 losses</i></p>
+    <p> otherwise, there are <i> > R + 1</i> nodes, either there is a node with loss <i>&ge; 2 losses</i>, or all nodes have loss 1, given R possible ranks, at least two nodes of same rank have loss 1</p>
+
+    <p> Note again, loss is only defined for active nodes.</p>
+
+</fieldset>
+
+<fieldset>
+    <h2> I3: The total number of active roots <i> &le; R + 1</i></h2>
+    <img src="i3.png" style="float:left; max-width:30%">
+    <p>e.g. There are 3 active roots in the tree, given <i>N = 9</i>, this is less than <i>R + 1</i>, or <i>2log(9) + 1</i></p>
+
+     <h3>Lemma 4: If I3 is violated, i.e. <i>number of Active roots > R + 1</i>, then at least two active roots have the same rank </h3>
+    <h4>Proof</h4>
+    <p> Given lemma 2 and use the Pigeonhole principle, it should be straight forward to see this is true. i.e. R possible holes, R+1 pigeons</p>
+
+</fieldset>
+
+
+<fieldset>
+    <h2> I4: <i>deg(root) &le; R + 3</i></h2>
+
+    <h3>Lemma 5: If I1-I3 are satisfied, but I4 is violated, i.e. <i>deg(root) &ge; R + 4</i>, then the root has 3 passive linkable children</h3>
+    <h4>Proof</h4>
+
+    <p>If the root has <i>x</i> active roots or active children, the root has <i>R + 4 - x </i> passive children. Within each subtree rooted at these passive children, if <i>y</i> is the first active node from top down, then y must be an active roots. Given I3 is satisfied, there are <i>R + 1 - x</i> active roots remaining we can assign to the <i>R + 4 - x </i> subtrees rooted at these passive children. That is, there are at least 3 of these trees without any active nodes, which means they are passive linkable</p>
 </fieldset>
 <fieldset>
-    <h2> I4: deg(root) <= R + 3</h2>
-</fieldset>
-<fieldset>
-    <h2> I5: deg(non-root) <= 2logN + 12</h2>
+    <h2> I5: <i>deg(non-root nodes) &le; 2logN + 12</i></h2>
      <img src="i5.png" style="float:left; max-width:50%">
-    <p> More specifically, let x be a non-root node, and let p be its position in Q. </p>
-    <p> If x is a passive node or an active node with positive loss, and deg(x) <= 2logN(2N - p) + 9</p>
-    <p> Otherwise, x is an active node with zero loss, and deg(x) <= 2logN(2N - p) + 10</p>
+    <p> More specifically, let <i>x</i> be a non-root node, and let <i>p</i> be its position in <i>Q</i>. </p>
+    <p> If <i>x</i> is a passive node or an active node with positive loss, then<br> 
+     <i>deg(x) &le; 2logN(2N - p) + 9 </i></p>
+    <p> Otherwise, <i>x</i> is an active node with loss <i>0</i>, and<br>
+      <i>deg(x) &le; 2logN(2N - p) + 10 </i></p>
 </fieldset>
 
       

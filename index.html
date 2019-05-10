@@ -12,7 +12,7 @@
 
     <body>
 
-    <div id = nav>
+    <div id ="nav">
       <ul>
          <li><a href="index.html" title="Home">OVERVIEW</a></li>
          <li><a href="definitions.html" title="Home">DEFINITIONS</a></li>
@@ -23,11 +23,11 @@
       </ul>
     </div>
 
-    <div id = title>
+    <div id ="title">
       <h1> Overview</h1> 
     </div>
 
-    <div id = body>
+    <div id ="body">
      
 
       <fieldset>
@@ -36,15 +36,15 @@
         <img src="time.png">
       </fieldset>
       <fieldset>
-        <h2> General Structure </h2>
+        <h2> Basic/Simplified Structure </h2>
        <img src="tree.png" style="float:left; max-width:30%">
         <ul>
           <li><p>One heap-ordered tree with N nodes</p></li>
           <li><p>Minimum at root</p></li>
           <li><p>A node can be either an Active/White node or a Passive/Red node</p></li>
-          <li><p>All nodes have O(logN) degree</p></li>
-           <li><p>All non-root nodes are maintained in a queue(Q) with position i</p></li>
-          <li><p>Root is always passive</p></li>
+          <li><p>All nodes have <i>O(logN)</i> degree</p></li>
+          <li><p>Root is always Passive/Red</p></li>
+          <li><p>A node's Active/White children are to the left of its Passive/Red children</p></li>
         </ul>
       </fieldset>
 

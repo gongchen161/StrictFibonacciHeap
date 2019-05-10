@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+
+<html>
+	
+	<head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Strict Fibonacci Heap</title>
+        <script src="d3.js"></script>
+        <link rel="stylesheet" href="styles.css">
+    </head>
+
+    <body>
+
+    <div id ="nav">
+      <ul>
+         <li><a href="index.html" title="Home">OVERVIEW</a></li>
+         <li><a href="definitions.html" title="Home">DEFINITIONS</a></li>
+         <li><a href="invariants.html" title="Home">INVARIANTS</a></li>
+         <li><a href="transformations.html" title="Home">TRANSFORMATIONS</a></li>
+         <li><a href="operations.html" title="Home">OPERATIONS</a></li>
+         <li><a href="demo.html" title="Home">DEMO</a></li>
+      </ul>
+    </div>
+ 
+
+    <div id ="title">
+      <h1>Operations</h1> 
+    </div>
+
+    <div id ="body">
+     
+     <fieldset>
+        <h2>Report Min - O(1) Worst Case</h2>
+        <ul>
+          <li><h4>Trivially, Min always at the Root</h4></li>
+        </ul>
+     </fieldset>
+
+
+        <fieldset>
+        <h2>Decrease Key - O(1) Worst Case</h2>
+        <h3> To decrease the key of node x to v</h3>
+        <ol>
+          <li><h4>If x is the root - DONE</h4></li>
+          <li><h4>If v is smaller than the root value, swap the two values</h4></li>
+          <li><h4>Cut the subtree rooted at x and link it to the root</h4></li>
+          <li><h4>Perform <= 1 Loss Reduction</h4></li>
+          <li><h4>Perform <= 6 Active Root Reduction + <= 4 Root Degree Reduction</h4></li>
+          <ul>
+            <li>Note again, 3 Active Root Reduction + 2 Root Degree Reduction decreases both Root degree and Active Root numbers by 1. Since the violations could be broken by 1 at most, this step guarantees that no violations afterward</li>
+          </ul>
+        </ol>
+
+        <h4> proof of invariants</h4>
+        <ul>
+        <li>Invariant 1:</li>
+        <p>This is trivially true by applying the proof here</p>
+
+         <li> Invariant 2:</li>
+          <p>If x was active, the total number of active root may increase to R + 2. However, by PIGENHOLE, we are guaranteed be able to perform the reductions in step 5.</p>
+
+         <li> Invariant 3:</li>
+          <p>Let y be the parent of x, if y and x are both active nodes, then the total loss will increase by one and may cause I3 to be violated(total loss > R + 1). However,by PIGENHOLE, we are guaranteed be able to perform one reduction in step 4.</p>
+
+         <li> Invariants 4:</li>
+          <p>The root degree increases by 1 after linking x. If this makes the root degree to be R + 4(violation), then by PIGEONHOOLE, thus perform the transformation in Step 4 to bring down the root degree (and active node number)</p>
+
+
+         <li> Invariants 5:</li>
+           <p> No non-root nodes get changed and no transformation will affect this invariant.</p>
+      </ul>
+     </fieldset>
+
+
+
+        <fieldset>
+        <h2>Merge - O(1) Worst Case</h2>
+        <img src="merge.png" style="float:left; max-width:50%">
+        <h3> Assume we want to merge H1 and H2, where size of H1 <= Size of H2</h3>
+        <ul>
+          <li><p>Make all nodes in H1 passive - Just change the active record that all nodes in H1 points to</p></li>
+          <li><p>Link H1 and H2 such that the smaller root of H1 and H2 becomes the new root</p></li>
+          <li><p>Set the new Q to be Q1 + new root + Q2</p></li>
+          <li><p>Perform <=1 Active Root Reduction + <=1 Root Degree Reduction if possible</p></li>
+        </ul>
+
+        <h4> proof of invariants</h4>
+        <ul>
+        <li>Invariant 1:</li>
+        <p>We changed one node, x, from passive to active during the Root Degree Reduction. However, x is passive linkable children, so it has no active nodes as children. Thus, the invariant hold.
+        </p>
+
+         <li> Invariant 2:</li>
+          <p>When we link the two heap, all active nodes in the smaller tree become passive, so number of active roots does not change and N (thus R) increases. </p>
+          <p>
+            If we perform just one Active Root Reduction or both, then the number of active roots will not change. If we perform only one Root Degree Reduction, then we end up with one more active root, which may violate I2. However, if it happens, we are guaranteed to find one pair of active nodes with the same rank to perform one Active Root Reduction, since by pigeonhole principle, given at least R+1 active nodes and all nodes have rank <= R,  two active nodes must have the same rank.
+          </p>
+
+         <li> Invariant 3:</li>
+          <p>We did not cut any nodes before the transformation, and the transformations in step 5 will never cause changes in loss. </p>
+
+         <li> Invariants 4:</li>
+          <p>The root degree increases by 1 after the linking. If this makes the root degree to be R + 4, then from I2, we can conclude there are at least 3 passive linkable node, thus the transformation in step 5 will bring down R by 1 at least</p>
+
+
+         <li> Invariants 5:</li>
+           <p> During the linking, one root node becomes a passive non-root node. However, it had R + 3 nodes before, and R + 3 < 2 log(2N - p) + 9 for any p. And as mentioned before, no transformation can affect this invariants. </p>
+           <p>
+             All nodes in the smaller heap become passive, thus their degree constraints could go from + 10 to just +9. However, for the small heap, the new N is at least twice as big as before, and their position is unchanged in the new Q, thus the new constraint is actually increased by at least one
+
+           </p>
+
+           <p>
+            All nodes in the larger heap remains their active/passive status and have their p pushed back by size Of Small Heap position, but N is also increased by the same size. So 2N - p actually increases, and make the constraints remains valid
+           </p>
+      </ul>
+     </fieldset>
+
+
+      <fieldset>
+        <h2>Insert - O(1) Worst Case</h2>
+        <img src="insert.png" style="float:left; max-width:50%">
+        <h3> Assume we want to insert node x</h3>
+        <ul>
+          <li><p>Create one heap with a passive node x</p></li>
+          <li><p>Merge it with the main tree</p></li>
+        </ul>
+
+
+
+
+
+      <fieldset>
+        <h2>Merge - O(1) Worst Case</h2>
+        <img src="merge.png" style="float:left; max-width:50%">
+        <ul>
+          <li><p>Scan through the children of the root and find node x with the minimum value</p></li>
+          <li><p>Make x passive</p></li>
+          <li><p>Make all the other children of the root children of x.</p></li>
+          <li><p>Remove x from Q, delete the original root and x is the new root.</p></li>
+
+          <li><p>Do this twice: move the first node, y, in Q to the back. If y has two passive children, link both to the root.</p></li>
+          <li><p>Perform <= 1 Loss Reduction.</p></li>
+          <li><p>Perform O(LogN) numbers of Active root reduction + Root Degree Reduction until none is possible.O(LogN)</p>(Note we need at most LogN times because every Active root reduction + Root Degree Reduction reduces root degree by 1)</li>
+        </ul>
+
+        <h4> proof of invariants</h4>
+        <ul>
+        <li>Invariant 1:</li>
+        <p>No violation since only x gets moved to the root.
+
+        </p>
+
+         <li> Invariant 2:</li>
+          <p>Could be violated since the number of active roots remains the same but R decreases as N decreases. However, if it happens, we are guaranteed to find one pair of active nodes with the same rank to perform one Active Root Reduction, since by pigeonhole principle, given at least R+1 active nodes and all nodes have rank <= R,  two active nodes must have the same rank.
+        </p>
+         
+
+         <li> Invariant 3:</li>
+          <p>This could be violated because R is decreased due to the decrease in N.  However, given all nodes have rank <= R, by Pigeonhole Principle, then there exists either a node with loss >= 2 or two nodes with equal rank with loss one. That is, we can perform a loss reduction to bring down the total loss by one.  </p>
+
+         <li> Invariants 4:</li>
+          <p>Hold trivially as we perform step 7 until none is possible.
+</p>
+
+
+         <li> Invariants 5:</li>
+           <p> Since N is decreased, the constraints are strengthened. And this is why we perform step 5. By removing two nodes to the back, all the other nodes have p decreased by 2 or 3 (depends on if the node was before or after the old min node). Thus, The constraints remain valid for these nodes. 
+           </p>
+           <p>
+             All nodes in the smaller heap become passive, thus their degree constraints could go from + 10 to just +9. However, for the small heap, the new N is at least twice as big as before, and their position is unchanged in the new Q, thus the new constraint is actually increased by at least one
+
+           </p>
+
+           <p>
+            For the two nodes that we moved back to the Q, their constraints reduced from 2log(2n) + 9 to 2 log(n) + 9. But if this is violated, given it has <= R active nodes, it must have two passive nodes for us to link to the root. (which may potentially violate I4, but it’s OK, we have enough transformations to overcome this)
+           </p>
+      </ul>
+     </fieldset>
+
+
+   
+
+     
+    </div>
+
+    </body>
+
+</html>

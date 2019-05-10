@@ -12,7 +12,7 @@
 
     <body>
 
-    <div id = nav>
+    <div id ="nav">
       <ul>
          <li><a href="index.html" title="Home">OVERVIEW</a></li>
          <li><a href="definitions.html" title="Home">DEFINITIONS</a></li>
@@ -23,22 +23,35 @@
       </ul>
     </div>
 
-    <div id = title>
-      <h1> Overview</h1> 
+    <div id ="title">
+        <p>Suggested use: <= 30 (unique) keys and 0<=key<=99. For bigger tree: here
+        </p> 
     </div>
 
-    <button id = "insertOne" onclick="insertOne()"> Insert One </button>
-    <input id = "key" type="text"><br>
-    <button id = "insertTwo" onclick="insertTwo()"> Insert Two </button>
-    <button id = "merge" onclick="mergeTwo()"> Merge </button>
-    <button id = "delete" onclick="deleteOne()"> DeleteMin </button>
-    <button id = "decrease" onclick="decreaseOne()"> DecreaseKey </button>
-    <input id = "dkey" type="text"><br>
-
+    <div>
+    <button id = "randomInsert" onclick="randomInsertOne()"> Random Insert H1</button>
+    <button id = "randomInsert" onclick="randomInsertTwo()"> Random Insert H2</button>
+        <input id = "randomKey" type="text" placeholder="Number of keys">
+    &nbsp
+    <button id = "insertOne" onclick="insertOne()"> Insert to H1 </button>
+    <button id = "insertTwo" onclick="insertTwo()"> Insert to H2 </button>
+        <input id = "key" type="text" placeholder="key to insert">
+       &nbsp
+    <button id = "decrease" onclick="decrease()" > Decrease Key </button>
+        <input id = "dkey" type="text" placeholder="final key value">
+       &nbsp
+    <button id = "delete" onclick="deleteMinOne()"> Delete Min H1 </button>
+    <button id = "delete" onclick="deleteMinTwo()"> Delete Min H2 </button>
+        &nbsp
+     <button id = "merge" onclick="mergeTwo()"> Merge H1 and H2</button>
+    </div>
     
     <div>
   		<svg id="body">
   		</svg>
+    </div>
+     <p><b style="text-decoration: underline">Current logs:</b></p>
+    <div id="temp">
     </div>
 
 
