@@ -6,12 +6,11 @@ Globals
 */
 
  let margin = {top: 20, right: 20, bottom: 20, left: 20};
- let width = 1250;
+ let width = 500;
  let height = 500;
- let bodyWidth = width / 3;
+ let bodyWidth = width;
  let target = null;
  let arr1 = [];
- let arr2 = [];
 
  let body = d3.select("#body")
       .attr("width", width)
@@ -19,65 +18,12 @@ Globals
 
 
 
-  body.append("line")
-    .attr("class", "zero")
-    .attr("stroke-dasharray", "5,5")
-    .attr("x1", bodyWidth)
-    .attr("y1", 0)
-    .attr("x2", bodyWidth)
-    .attr("y2", height)
-
-
-  body.append("line")
-    .attr("class", "zero")
-    .attr("stroke-dasharray", "5,5")
-    .attr("x1", bodyWidth * 2)
-    .attr("y1", 0)
-    .attr("x2", bodyWidth * 2)
-    .attr("y2", height)
-
-
-  let l1 = body.append("text")             
-      .attr("transform",
-          "translate(" + 2 + " ,"  + (height - 2) + ")")
-    .style("text-anchor", "left")
-    .style("font", "12px times")
-    .style("font-weight", "bold")
-    .text("H1");
-
-  let l2 = body.append("text")             
-      .attr("transform",
-          "translate(" + (bodyWidth * 2 + 2) + " ,"  + (height - 2) + ")")
-    .style("text-anchor", "left")
-    .style("font", "12px times")
-    .style("font-weight", "bold")
-    .text("H2");
-
-  let lt = body.append("text")             
-      .attr("transform",
-          "translate(" + (bodyWidth + 2) + " ,"  + (height - 2) + ")")
-    .style("text-anchor", "left")
-    .style("font", "12px times")
-    .style("font-weight", "bold")
-    .text("Old H?");
-
-
 let g1 = body
         .append("g")
         .attr("transform", function(d) { 
                   return "translate(" + (margin.left) + "," + (margin.top) + ")"; })
-let gt = body
-          .append("g")
-          .attr("transform", function(d) { 
-                  return "translate(" + (bodyWidth + margin.left) + "," + (margin.top) + ")"; })
-let g2 = body
-        .append("g")
-        .attr("transform", function(d) { 
-                  return "translate(" + (bodyWidth * 2 + margin.left) + "," + (margin.top) + ")"; })
 
 let h1 = new HeapRecord();
-let ht = new HeapRecord();
-let h2 = new HeapRecord();
 
 /*
  Main callback functions
@@ -109,12 +55,11 @@ function randomInsertOne() {
     return;
   }
   ht = h1;
-  clear(gt);
-  lt.text("Old H1");
-  draw(gt, ht);
+
+
   
   arr1 = [];
-  let val = arr2.length;
+  let val = 0;
   while(arr1.length < num){
     arr1.push(val++);
   }
@@ -142,7 +87,7 @@ function randomInsertTwo() {
 
   ht = h2;
   clear(gt);
-  lt.text("Old H2");
+
   draw(gt, ht);
   
   arr2 = [];
@@ -175,9 +120,9 @@ function insertOne() {
   }
 
   ht = h1;
-  clear(gt);
-  lt.text("Old H1");
-  draw(gt, ht);
+
+
+
   addP("Insert " + v);
   h1 = insert(h1, v);
   clear(g1);
@@ -196,7 +141,7 @@ function insertTwo() {
   }
   ht = h2;
   clear(gt);
-  lt.text("Old H2");
+
   draw(gt, ht);
   addP("Insert " + v);
   h2 = insert(h2, v);
@@ -204,20 +149,7 @@ function insertTwo() {
   draw(g2, h2);
 }
 
-function mergeTwo() {
-  clearP();
-  ht = h1;
-  clear(gt);
-  lt.text("Old H1");
-  draw(gt, ht);
 
-  addP("Merge H1 and H2");
-  arr1 = arr1.concat(arr2);
-  h1 = merge(h1, h2);
-  h2 = new HeapRecord();
-  clear(g1);
-  draw(g1, h1);
-}
 
 function deleteMinOne() {
   clearP();
@@ -226,9 +158,6 @@ function deleteMinOne() {
     return;
   }
   ht = h1;
-  clear(gt);
-  lt.text("Old H1");
-  draw(gt, ht);
 
   addP("Delete the root/min <b>" + h1.root.key + "</b>");
   h1 = deleteMin(h1);
@@ -236,24 +165,6 @@ function deleteMinOne() {
   draw(g1, h1);
 }
 
-function deleteMinTwo() {
-  clearP();
-
-  if (h2.root == null) {
-    addP("Invalid Delete Min")
-    return;
-  }
-
-  ht = h2;
-  clear(gt);
-  lt.text("Old H2");
-  draw(gt, ht);
-  
-  addP("Delete the root/min <b>" + h2.root.key + "</b>");
-  h2 = deleteMin(h2);
-  clear(g2);
-  draw(g2, h2);
-}
 
 function decrease() {
   clearP();
@@ -272,9 +183,9 @@ function decrease() {
   
   if (h1.findNode(target)) {
       ht = h1;
-      clear(gt);
-      lt.text("Old H1");
-      draw(gt, ht);
+
+
+
 
       addP("Decrease key <b>" + target.key + "</b> to <b>" + v + "</b>");
       h1 = decreaseKey(h1, v);
@@ -282,9 +193,9 @@ function decrease() {
       draw(g1, h1);
   } else if (h2.findNode(target)) {
       ht = h2;
-      clear(gt);
-      lt.text("Old H2");
-      draw(gt, ht);
+
+
+
 
       addP("Decrease key <b>" + target.key + "</b> to <b>" + v + "</b>");
       h2 = decreaseKey(h2, v);
@@ -583,12 +494,19 @@ function draw(g, h) {
   let data = h.rootJson();
 
   let offset = 0.05;
-  let r2 = 30;
+  let r1 = 25;
+  let r2 = 12;
+
+  width = h.root.getWidth() *  r1 * 5;
+  height = (h.root.getHeight()) *  r1 * 3 + margin.top * 10 + r2 *4;
+
+  body.attr("width", width)
+      .attr("height", height);
 
  if(queue) {
 
       let list = d3.tree()
-                    .size([height*offset  - margin.top - margin.bottom, Math.min(queue["length"] * r2, bodyWidth) - margin.left-margin.right]);
+                    .size([height*offset - margin.top * 2, Math.min(queue["length"] * r2 * 5, width) - margin.left * 2]);
 
       let queueNodes = d3.hierarchy(queue, function(d) {
             return d.children;
@@ -617,18 +535,18 @@ function draw(g, h) {
           .attr("class", "queueNode")
           .attr("transform", function(d) { 
             return "translate(" + d.y + "," + d.x + ")"; })
-          .attr("r", 7)
+          .attr("r", r2)
           .attr("fill", function(d){return d.data.active ? d.data.active.flag ? "white" : "red" : "red"  })
           .on("mouseover", function(d) {   
-           
-                        div.style("opacity", .9)
-                            .style("font", "12px Arial")
-                           .html("rank: " +d.data.node.getRank() +"<br/>"  + "loss: " + (d.data.node.getLoss()))
-                            .style("left", (d3.event.pageX) + "px")   
-                            .style("top", (d3.event.pageY) + "px");  
-                        })          
-                  .on("mouseout", function(d) {   
-                        div.style("opacity", 0); 
+
+                    div.style("opacity", .9)
+                        .style("font", "12px Arial")
+                        .html("rank: " +d.data.node.getRank() +"<br/>"  + "loss: " + (d.data.node.getLoss())) 
+                        .style("left", (d3.event.pageX) + "px")   
+                        .style("top", (d3.event.pageY) + "px");  
+                    })          
+              .on("mouseout", function(d) {   
+                    div.style("opacity", 0); 
                 });
 
 
@@ -640,16 +558,16 @@ function draw(g, h) {
           .style("font", "12px times")
           .text(function(d){return d.data.key})
           .on("mouseover", function(d) {   
-           
-                        div.style("opacity", .9)
-                            .style("font", "12px Arial")
-                           .html("rank: " +d.data.node.getRank() +"<br/>"  + "loss: " + (d.data.node.getLoss()))
-                            .style("left", (d3.event.pageX) + "px")   
-                            .style("top", (d3.event.pageY) + "px");  
-                        })          
-                  .on("mouseout", function(d) {   
-                        div.style("opacity", 0); 
-                });  
+
+                    div.style("opacity", .9)
+                        .style("font", "12px Arial")
+                        .html("rank: " +d.data.node.getRank() +"<br/>"  + "loss: " + (d.data.node.getLoss()))  
+                        .style("left", (d3.event.pageX) + "px")   
+                        .style("top", (d3.event.pageY) + "px");  
+                    })          
+              .on("mouseout", function(d) {   
+                    div.style("opacity", 0); 
+                }); 
 
     }
 
@@ -657,7 +575,7 @@ function draw(g, h) {
           console.log(fixList);
 
           let list = d3.tree()
-                        .size([height*offset  - margin.top - margin.bottom, Math.min(fixList["length"] * r2, bodyWidth)  - margin.left-margin.right]);
+                        .size([height*offset - margin.bottom * 2, Math.min(fixList["length"] * r2 * 5, width)  - margin.left * 2]);
 
           let fixNodes = d3.hierarchy(fixList, function(d) {
                 return d.children;
@@ -683,25 +601,25 @@ function draw(g, h) {
               .enter()
               .append("g")
               .attr("transform", function(d) { 
-                    return "translate(" + 0 + "," + (height * offset ) + ")"; });
+                    return "translate(" + 0 + "," + (height * offset) + ")"; });
 
 
             fixNode.append("circle")
               .attr("class", "fixNode")
               .attr("transform", function(d) { 
                 return "translate(" + d.y + "," + d.x + ")"; })
-              .attr("r", 7)
+              .attr("r", r2)
               .attr("fill", function(d){return d.data.color  })
               .on("mouseover", function(d) {   
-           
-                        div.style("opacity", .9)
-                            .style("font", "12px Arial")
-                           .html("rank: " +d.data.node.getRank() +"<br/>"  + "loss: " + (d.data.node.getLoss()))
-                            .style("left", (d3.event.pageX) + "px")   
-                            .style("top", (d3.event.pageY) + "px");  
-                        })          
-                  .on("mouseout", function(d) {   
-                        div.style("opacity", 0); 
+
+                    div.style("opacity", .9)
+                        .style("font", "12px Arial")
+                       .html("rank: " +d.data.node.getRank() +"<br/>"  + "loss: " + (d.data.node.getLoss()))  
+                        .style("left", (d3.event.pageX) + "px")   
+                        .style("top", (d3.event.pageY) + "px");  
+                    })          
+              .on("mouseout", function(d) {   
+                    div.style("opacity", 0); 
                 });
 
 
@@ -711,26 +629,26 @@ function draw(g, h) {
               .attr("y", function(d){return d.x})
               .style("text-anchor", "middle")
               .style("font", "12px times")
-              .text(function(d){return d.data.key})
+              .text(function(d){return d.data.key}) 
               .on("mouseover", function(d) {   
-           
-                        div.style("opacity", .9)
-                            .style("font", "12px Arial")
-                           .html("rank: " +d.data.node.getRank() +"<br/>"  + "loss: " + (d.data.node.getLoss()))
-                            .style("left", (d3.event.pageX) + "px")   
-                            .style("top", (d3.event.pageY) + "px");  
-                        })          
-                  .on("mouseout", function(d) {   
-                        div.style("opacity", 0); 
+
+                    div.style("opacity", .9)
+                        .style("font", "12px Arial")
+                       .html("rank: " +d.data.node.getRank() +"<br/>"  + "loss: " + (d.data.node.getLoss()))  
+                        .style("left", (d3.event.pageX) + "px")   
+                        .style("top", (d3.event.pageY) + "px");  
+                    })          
+              .on("mouseout", function(d) {   
+                    div.style("opacity", 0); 
                 });
 
 
 
         }
         if (data) {
-   
+
           let tree = d3.tree()
-                        .size([bodyWidth - margin.left-margin.right, height * h.root.getHeight()/10 - margin.top - margin.bottom]);
+                        .size([width - margin.left-margin.right, (height - height * (offset*2))  - margin.top*2 - margin.bottom*2]);
 
            let nodes = d3.hierarchy(data, function(d) {
                 return d.children;
@@ -745,7 +663,7 @@ function draw(g, h) {
               .enter().append("path")
               .attr("class", "link")
               .attr("transform", function(d) { 
-                    return "translate(" + 0 + "," + (height * (offset*2)  ) + ")"; })
+                    return "translate(" + 0 + "," + ((height * (offset*2) +margin.top  )) + ")"; })
               .attr("d", function(d) {
                 return "M" + d.x + "," + d.y + "L" + d.parent.x +"," + d.parent.y;
              });
@@ -756,7 +674,7 @@ function draw(g, h) {
               .enter()
               .append("g")
               .attr("transform", function(d) { 
-                          return "translate(" + 0 + "," + (height * offset * 2) + ")"; })
+                          return "translate(" + 0 + "," + ((height * offset * 2) +margin.top) + ")"; })
 
 
               var div = d3.select("body").append("div") 
@@ -768,13 +686,13 @@ function draw(g, h) {
               .attr("class", "node")
               .attr("transform", function(d) { 
                 return "translate(" + d.x + "," + d.y + ")"; })
-              .attr("r", 15)
+              .attr("r", r1)
               .attr("fill", function(d){return d.data.active ? d.data.active.flag ? "white" : "red" : "red"  })
               .on("mouseover", function(d) {   
 
                     div.style("opacity", .9)
                         .style("font", "12px Arial")
-                        .html("rank: " +d.data.node.rank +"<br/>"  + "loss: " + d.data.node.loss)  
+                        .html("rank: " +d.data.node.getRank() +"<br/>"  + "loss: " + (d.data.node.getLoss()))
                         .style("left", (d3.event.pageX) + "px")   
                         .style("top", (d3.event.pageY) + "px");  
                     })          
@@ -794,7 +712,7 @@ function draw(g, h) {
            
                         div.style("opacity", .9)
                             .style("font", "12px Arial")
-                            .html("rank: " +d.data.node.rank +"<br/>"  + "loss: " + d.data.node.loss)  
+                           .html("rank: " +d.data.node.getRank() +"<br/>"  + "loss: " + (d.data.node.getLoss()))
                             .style("left", (d3.event.pageX) + "px")   
                             .style("top", (d3.event.pageY) + "px");  
                         })          
@@ -806,7 +724,7 @@ function draw(g, h) {
             node.on("click", function(elm) {
 
               node.selectAll("circle")
-                .attr("r", 15);
+                .attr("r", r1);
 
               node.selectAll("circle")
                   .select( function(d) { 
@@ -817,7 +735,7 @@ function draw(g, h) {
                     return null;
                   })
                   .transition()                  
-                  .attr("r", 20);
+                  .attr("r", (r1*1.5));
             });
 
       }          

@@ -26,45 +26,40 @@
     </div>
 
     <div id ="title">
-        <p>Due to the size of the container, use &le; 30 (unique) keys and 0 &le; key value &le; 99. The first list is "Q", and the second list is "Fix-List". For bigger container: <a href="demo2.html">Demo 2</a>
-        </p> 
         <p>
-         <span class="dot1"></span><span>Active Root Reduction Ready(part 1)</span>
+       <span class="dot1"></span><span>Active Root Reduction Ready(part 1)</span>
         <span class="dot2"></span><span>Single Active Roots of Rank x(part 2)</span>
         <span class="dot3"></span><span>Active Nodes with Loss 1(part 3)</span>
         <span class="dot4"></span><span>Loss Reduction Ready(part 4) </span>
     </p>
     </div>
+        
 
     <div>
-    <button id = "randomInsert" onclick="randomInsertOne()"> Random Insert H1</button>
-    <button id = "randomInsert" onclick="randomInsertTwo()"> Random Insert H2</button>
+    <button id = "randomInsert" onclick="randomInsertOne()"> Random Insert</button>
         <input id = "randomKey" type="text" placeholder="Number of keys">
     &nbsp
-    <button id = "insertOne" onclick="insertOne()"> Insert to H1 </button>
-    <button id = "insertTwo" onclick="insertTwo()"> Insert to H2 </button>
+    <button id = "insertOne" onclick="insertOne()"> Insert </button>
         <input id = "key" type="text" placeholder="key to insert">
        &nbsp
     <button id = "decrease" onclick="decrease()" > Decrease Key </button>
         <input id = "dkey" type="text" placeholder="final key value">
        &nbsp
-    <button id = "delete" onclick="deleteMinOne()"> Delete Min H1 </button>
-    <button id = "delete" onclick="deleteMinTwo()"> Delete Min H2 </button>
+    <button id = "delete" onclick="deleteMinOne()"> Delete Min</button>
         &nbsp
-     <button id = "merge" onclick="mergeTwo()"> Merge H1 and H2</button>
     </div>
     
     <div>
-  		<svg id="body">
-  		</svg>
+        <svg id="body">
+        </svg>
     </div>
      <p><b style="text-decoration: underline">Current logs:</b></p>
     <div id="temp">
     </div>
 
 
-	</body>
+    </body>
     <script src="classes.js"></script>
-  <script src="sfh.js"></script>
+  <script src="sfh2.js"></script>
 
 </html>

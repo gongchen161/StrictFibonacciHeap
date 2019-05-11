@@ -14,12 +14,14 @@
 
     <div id ="nav">
       <ul>
-         <li><a href="index.html" title="Home">OVERVIEW</a></li>
-         <li><a href="definitions.html" title="Home">DEFINITIONS</a></li>
-         <li><a href="invariants.html" title="Home">INVARIANTS</a></li>
-         <li><a href="transformations.html" title="Home">TRANSFORMATIONS</a></li>
-         <li><a href="operations.html" title="Home">OPERATIONS</a></li>
-         <li><a href="demo.html" title="Home">DEMO</a></li>
+         <li><a href="index.html">OVERVIEW</a></li>
+         <li><a href="definitions.html">DEFINITIONS</a></li>
+         <li><a href="invariants.html">INVARIANTS</a></li>
+         <li><a href="transformations.html">TRANSFORMATIONS</a></li>
+         <li><a href="operations.html">OPERATIONS</a></li>
+         <li><a href="structure.html">STRUCTURE</a></li>
+         <li><a href="demo.html">DEMO</a></li>
+         <li><a href="reference.html">REFERENCE</a></li>
       </ul>
     </div>
  
@@ -75,7 +77,6 @@
 
      <p><b>I5</b>: No violations. The degree of <i>x</i> increases by 1, but we detach <i>z</i> to keep it the same. And, if there is no <i>z</i> to detach, then all children of <i>x</i> is active, and from Lemma 2, we know <i>x</i> has at most degree R</p>
 
-           <p><b>Note</b>: Because of I3,and I4, Active Root Reductions and Root Degree Redutions are always performed together when necessary (also see Summary)</p>
      
      </fieldset>
 
@@ -100,13 +101,13 @@
       </ul>
 
       <h3>Effects on Invariants</h3>
-      <p><b>I1</b>: No violations as <i>y</i> becomes the <i>1st</i>rightmost child of <i>x</i>, and <i>y</i> has rank + loss of 0</p>
+      <p><b>I1</b>: No violations as <i>y</i> becomes the <i>1st</i> rightmost child of <i>x</i>, and <i>y</i> has rank + loss of 0</p>
       <p><b>I2</b>: Trivially, no violation to I2 as no changes to the total loss</p>
       <p><b>I3</b>: It could break I3 as the Active Roots increase by 1, but together with Active Root Reduction, we are still safe</p>
       <p><b>I4</b>: This transformation can be used when I4 is violated since it can decrease the root degree by 2. By Lemma 5, we are guaranteed to find three rightmost passive linkable children <i>x, y, z</i> of the <i>root</i> to perform this transformation</p>
       <p><b>I5</b>: No violations. Both <i>x</i> and <i>y</i> get a new child. But, they go from passive to an active node with loss 0, so they are allowed to have one more child.</p>
 
-      <p><b>Note</b>: Because of I3,and I4, Active Root Reductions and Root Degree Redutions are always performed together when necessary (also see Summary)</p>
+      <p><b>Note</b>: Because Active Root Reduction increases the root degree by 1 and Root Degree Redution increases the Active Roots number by 1, they are often performed together to ensure no violations to all 5 invariants (also see Summary)</p>
 
 
 
@@ -165,9 +166,9 @@
       </ul>
 
       <h3>Effects on Invariants</h3>
-      <p><b>I1</b>: This transformation can be used when I2 is violated since it can decrease the loss. By Lemma 3, if the loss constraints is violated by 1, together with <i>One Node Loss Reduction</i>, we can bring down the total loss to within the constraint</p>
+      <p><b>I1</b>: No violations. The only change in active node is <i>y</i> becomes the <i>(r+1)-th</i> rightmost child of <i>x</i>, this is OK since <i>y</i> has rank <i>r</i> and loss 0</p>
 
-      <p><b>I2</b>: It decreases the loss by at least 1. By <i>Lemma 5</i>, and pair this with <i>One Node Loss Reduction</i>, we can keep I2.</p>
+      <p><b>I2</b>: It decreases the loss by at least 1. By Lemma 3, and pair this with <i>One Node Loss Reduction</i>, we can keep I2.</p>
 
       <p><b>I3 and I4</b>: Unlike One Node Loss Reduction, active roots and root degree are not increased, so no violations</p>
       <p> <b>I5</b>: The degree of x is increases by 1, however,it goes from an active node with positive loss to an active node with loss 0, so it's allowed to have one more child.</p></p>
@@ -180,9 +181,9 @@
       <h2>Summary</h2>
       <img src="transformationSummary.png" style= "max-width:70%">
 
-      <p>Note that, from the above chart and analysis, no transformations can violate I1 and I5. And if I2,I3 or I4 are violated, we can always perform some combinations of Active Root Reduction, Root Degree Reduction and Loss Reductions, to bring down the root degree, active roots and total loss to the safe range.</p>
+      <p>Note from the above chart and analysis, no transformations can break I1, I2 and I5. And if we perform Active Root Reduction with Root Degree Reduction (with One or Two Nodes Loss Reduction), no transformations can violate all I1 to I5.</p>
 
-      <p> in the following sections, we will see Active Root Reductions are always paired with Root Degree Redutions to ensure no violations happen to I3 and I4. And after a loss reduction is performed, Active Root Reductions and Root Degree Redutions are performed to ensure I2-I4.</p>
+      <p> In the following sections, we will see Active Root Reductions are always paired with Root Degree Redutions to ensure no violations happen to the 5 invariants.. And after a loss reduction is performed, Active Root Reductions and Root Degree Redutions are performed to ensure the invariants</p>
     
      </fieldset>
 

@@ -106,3 +106,32 @@ div.tooltip {
   padding : 1px;
   margin: 0;
 }
+
+.dot1 {
+  height: 15px;
+  width: 15px;
+  background-color: #efead2;
+  border-radius: 50%;
+  display: inline-block;
+}
+.dot2 {
+  height: 15px;
+  width: 15px;
+  background-color: #e3efd2;
+  border-radius: 50%;
+  display: inline-block;
+}
+.dot3 {
+  height: 15px;
+  width: 15px;
+  background-color: #d2ddef;
+  border-radius: 50%;
+  display: inline-block;
+}
+.dot4 {
+  height: 15px;
+  width: 15px;
+  background-color: #efd2ea;
+  border-radius: 50%;
+  display: inline-block;
+}

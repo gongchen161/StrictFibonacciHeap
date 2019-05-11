@@ -14,12 +14,14 @@
 
     <div id ="nav">
       <ul>
-         <li><a href="index.html" title="Home">OVERVIEW</a></li>
-         <li><a href="definitions.html" title="Home">DEFINITIONS</a></li>
-         <li><a href="invariants.html" title="Home">INVARIANTS</a></li>
-         <li><a href="transformations.html" title="Home">TRANSFORMATIONS</a></li>
-         <li><a href="operations.html" title="Home">OPERATIONS</a></li>
-         <li><a href="demo.html" title="Home">DEMO</a></li>
+        <li><a href="index.html">OVERVIEW</a></li>
+         <li><a href="definitions.html">DEFINITIONS</a></li>
+         <li><a href="invariants.html">INVARIANTS</a></li>
+         <li><a href="transformations.html">TRANSFORMATIONS</a></li>
+         <li><a href="operations.html">OPERATIONS</a></li>
+         <li><a href="structure.html">STRUCTURE</a></li>
+         <li><a href="demo.html">DEMO</a></li>
+         <li><a href="reference.html">REFERENCE</a></li>
       </ul>
     </div>
 
@@ -42,12 +44,12 @@
     <h4> Proof</h4>
     <p> We first define <i> k</i> to be the smallest integer such that <i>k(k+1)/2 &ge; L</i></p>
     <p>We will use proof by contradiction and assume: <br>
-      <i>r &ge; logN + k + 1 </i> </p>
+      <i>r &ge; logN + k + 1 </i> is true</p>
     <p> Note, <i>logN + k + 1  < logN + &radic;<span style="text-decoration:overline;">k*(k+1)</span>+2</i>, so we are proving a stronger statement</p>
 
     <p>Assume <i>x</i> is an active node with the maximum rank <i>r</i>, we will show the contradiction by proving the subtree, <i>Tx</i>, rooted at <i>x</i> has size <i>N + 1</i>.</p>
 
-    <p>Given I1 is satisfied, i.e. All active children of the active nodes in <i>Tx</i> has <i>rank+loss &ge; i - 1</i>, and the total loss is <i>L</i>. And given the contradiction, <i>x</i> has at least <i>r</i> active children. We can construct the minimum <i>Tx</i> by starting with a binomial tree of size <i>2<sup>r</sup></i> or root degree <i>r</i> with all nodes being active (we want the minimum, so we should not keep passive nodes). All nodes satisfy I1 by having <i>rank = i-1</i> and <i>loss =0</i></p>
+    <p>Given I1 is satisfied, i.e. All active children of the active nodes in <i>Tx</i> has <i>rank+loss &ge; i - 1</i>, and the total loss is <i>L</i>. And given the contradiction, <i>x</i> has at least <i>r</i> active children. We can construct the minimum <i>Tx</i> by starting with a binomial heap of size <i>2<sup>r</sup></i> or root degree <i>r</i> with all nodes being active (we want the minimum, so we should not keep passive nodes). All nodes satisfy I1 by having <i>rank = i-1</i> and <i>loss =0</i></p>
     <p>To achieve loss <i>L</i> and keep <i>Tx</i> minimal, we will cut the L biggest grandchildren of <i>x</i> (we can't cut children of <i>x</i> because it needs rank <i>r</i> <r></p>
 
     <p>We know, in a binomial heap, there are <i>j</i> grandchildren of degree <i>r - j - 1</i>, so the total number of grandchildren with degree <i>&ge; r - k -1</i> is <br>
@@ -93,7 +95,7 @@
 
      <h3>Lemma 4: If I1 and I2 are satisfied but I3 is violated, i.e. number of Active roots > <i>R + 1</i>, then at least two active roots have the same rank </h3>
     <h4>Proof</h4>
-    <p> Given lemma 2 and use the Pigeonhole principle, it should be straight forward to see this is true. i.e. <i>R+1</i> possible ranks/holes, <i>R+1</i> active roots/pigeons</p>
+    <p> Given lemma 2 and use the Pigeonhole principle, it should be straight forward to see this is true. i.e. <i>R+1</i> possible ranks/holes, <i>&ge; R+2</i> active roots/pigeons</p>
 
 </fieldset>
 
