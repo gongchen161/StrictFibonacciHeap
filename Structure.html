@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+
+<html>
+	
+	<head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Strict Fibonacci Heap</title>
+        <script src="d3.js"></script>
+        <link rel="stylesheet" href="styles.css">
+    </head>
+
+    <body>
+
+    <div id ="nav">
+      <ul>
+         <li><a href="index.html" title="Home">OVERVIEW</a></li>
+         <li><a href="definitions.html" title="Home">DEFINITIONS</a></li>
+         <li><a href="invariants.html" title="Home">INVARIANTS</a></li>
+         <li><a href="transformations.html" title="Home">TRANSFORMATIONS</a></li>
+         <li><a href="operations.html" title="Home">OPERATIONS</a></li>
+         <li><a href="structure.html" title="Home">STRUCTURE</a></li>
+         <li><a href="demo.html" title="Home">DEMO</a></li>
+      </ul>
+    </div>
+
+    <div id ="title">
+      <h1> Overview</h1> 
+    </div>
+
+    <div id ="body">
+     
+      <fieldset>
+        <h2> Real Structure </h2>
+       <img src="realStructure.png" style="max-width:70%">
+
+       <h2>Fix-List</h2>
+        <p>We maintain a Fix-List in which it contains a linked-list of active nodes that could potentially perform the transformations. We divided it into 4 parts.</p>
+        <ul>
+          <li>Part 1 contains all active roots that are ready for active root reductions. All nodes with the same rank are next to each other. This ensures us to find the target nodes to perform the transformations immediately</li>
+          <li>Part 2 contains the rest active roots that are NOT ready for active root reductions. i.e. It's the only node with that rank</li>
+
+          <li>Part 3 contains all active nodes that are NOT ready for the two kinds of loss reduction transformations. </li>
+          <li>Part 4 contains all active nodes that are ready for the two kinds of loss reduction transformations. All nodes with the same rank are next to each other. This ensures us to find the target nodes to perform the transformations immediately</li>
+        </ul>
+        <p>If we need to perform an Active Root Reduction, we just need to check if part 1 is non-empty. If a reduction is performed, one node becomes an active node with loss 0, so it's removed from this list. And another node's rank is increased by 1, so we just need to go to the Rank-List, and follow the pointer to the correct position in the Fix-List. </p>
+
+         <p>If we need to perform a One or Two Nodes Loss Reduction, we just need to check if part 4 is non-empty. If a One Node Loss Reduction is performed, the target node becomes an active root, so it may need to move to part 1 or 2 - by just following the pointer in the Rank-List. If a Two Node Loss Reduction is performed, both nodes becomes active nodes with loss 0, so they will be removed from the Fix-List, and we need to check if there is one remain nodes with the same rank and loss 1 is still in the Fix-List, if so, it should be moved to part 3.
+
+          <p>In summary, by maintaining a Fix-List, An Active Root Reduction or Loss Reduction can be found in O(1) time </p>
+       
+       
+       <h2>Rank-List</h2>
+        <p>We maintain a Rank-List in which it contains R nodes(as R is the maximum rank) each representing rank 0, 1, 2, ...R, as a linked list.</p>
+        <p> The node representing rank r in the Rank-List has a pointers to the first active root with rank r in the part 1 or 2 of Fix-List, and a pointers to the first active node with positive loss in the part 3 or 4 of Fix-List. As explained above, these two pointers allow the transfer of nodes in the Fix-List O(1) </p>
+
+
+      
+
+       <h2>Node</h2>
+        <ul>
+          <li>key: the value</li>
+          <li>left, right, parent: pointers to the left sibling, right sibling and parent. All siblings form a circular linked-list so that insertion in any place is constant</li>
+          <li>Qnext, Qprev: pointers to the next and prev nodes in the Q. Also a circular linked-list so that insertion and merging is constant</li>
+          <li>rank: If the node is passive, it's undefined. If the node is an active root or an active node with positive loss(i.e. it could potentially participate in a transformation), it points to the Fix-List, otherwise, it points to the Rank-List. </li>
+        </ul>
+
+         <h2>Heap</h2>
+         <p>Every heap maintains its own Rank-List, Fix-List, root, Q, and a active flag. When a merge happens, all nodes in the smaller heap becomes passive. so The new Rank-List and Fix-List is just the larger size heap. All active nodes in the same heap pointing to the same TRUE active flag that the heap has. And to make all nodes in a heap passive in O(1), we just need to change the active flag to FALSE. A node will consider active if and only if it's pointing to a TRUE active flag. A node is negative if it's pointing to null or a FALSE active flag e.g. </p>
+         <img src="makeAllPassive.png" style="max-width:70%">
+
+      </fieldset>
+
+    </div>
+
+	</body>
+
+</html>

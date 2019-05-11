@@ -12,6 +12,7 @@ class NodeRecord {
     this.active = null;
     this.loss = 0;
     this.rank = 0;
+    this.color = null;
   }
 
   jsonFy() {
@@ -28,7 +29,7 @@ class NodeRecord {
 
   getHeight() {
 
-    if (!this.children)
+    if (this.children.length == 0)
       return 1;
 
     let ma = 0;
@@ -40,7 +41,7 @@ class NodeRecord {
   }
 
   isPassiveLinkable() {
-    if (this.active && this.active.flag)
+    if (this.isActive())
       return false;
 
     for (let c of this.children) {
@@ -97,8 +98,21 @@ class NodeRecord {
     }
   }
 
+  updateActivePosiveNode(map) {
+    if (this.isActive() && !this.isActiveRoot() && this.loss > 0) {
+      if(!map[this.rank]) {
+       map[this.rank] = [];
+      }
+      map[this.rank].push(this);
+    } 
+
+    for (let c of this.children) {
+      c.updateActivePosiveNode(map);
+    }
+  }
+
   getActiveLossTwo() {
-    if (this.isActive() && this.loss == 2) {
+    if (this.isActive() && !this.isActiveRoot() && this.loss == 2) {
       return this;
     }
 
@@ -147,10 +161,7 @@ class HeapRecord {
     this.root = null;
     this.size = 0;
     this.active = new ActiveRecord();
-    this.nonLinkable = [];
     this.head = [];
-    this.rankList = {};
-    this.lossList = {};
   }
 
 
@@ -170,23 +181,118 @@ class HeapRecord {
     map["key"] = this.head[i].key;
     map["active"] = this.head[i].active;
     map["children"] = [];
+    map["length"] = 1;
 
     if (i == this.head.length - 1) {
         return map;
     }
-
-    map["children"].push(this.headJson(i+1));
-
+    let m = this.headJson(i+1);
+    map["children"].push(m);
+    map["length"] = m["length"] + 1;
     return map;
   }
 
   fixListJson(i) {
+    if (!this.root)
+      return null;
+    let map1 = {};
+    let map2 = {};
+    this.root.updateActiveRoot(map1);
+    this.root.updateActivePosiveNode(map2);
 
+    let arr = [];
+
+    Object.keys(map1).forEach(function(key) {
+      if (map1[key].length >= 2) {
+        for (let c of map1[key]){
+            c.color = "#efead2"
+            arr.push(c);
+          }
+      }
+    })
+
+    Object.keys(map1).forEach(function(key) {
+      if (map1[key].length == 1) {
+        for (let c of map1[key]){
+            c.color = "#e3efd2"
+            arr.push(c);
+          }
+      }
+    })
+
+    Object.keys(map2).forEach(function(key) {
+        
+         if (map2[key].length == 1) {
+          for (let c of map2[key]){
+            if (c.loss == 1){
+              c.color = "#d2ddef"
+              arr.push(c);
+            }
+          }
+        }
+    })
+
+      Object.keys(map2).forEach(function(key) {
+        
+         if (map2[key].length > 1) {
+          let n = 0;
+          for (let c of map2[key]){
+              if (c.loss == 1) {
+                n++;
+              }
+          }
+
+          for (let c of map2[key]){
+              if (n >= 2 && c.loss == 1) {
+                c.color = "#efd2ea"
+                arr.push(c);
+              }
+          }
+
+           for (let c of map2[key]){
+              if (c.loss > 1) {
+                c.color = "#efd2ea"
+                arr.push(c);
+              }
+          }
+
+
+        }
+    })
+    console.log(arr);
+    let res = this.jsonFy(arr, 0);
+
+    return res;
+  }
+
+  jsonFy(arr, i) {
+
+    if (arr.length == 0)
+      return null;
+  
+    let map = {};
+    map["key"] = arr[i].key;
+    map["children"] = [];
+    map["active"] = arr[i].active;
+    map["node"] = arr[i];
+    map["color"] = arr[i].color;
+    map["length"] = arr.length;
+
+    if (i == arr.length - 1) {
+        return map;
+    }
+    
+    map["children"].push(this.jsonFy(arr, i+1));
+
+    return map;
   }
 
 
   findNode(v) {
-      return this.root.findNode(v);
+    if(!this.root)
+      return null;
+    
+    return this.root.findNode(v);
   }
 
 
@@ -227,9 +333,12 @@ class HeapRecord {
 
     x.loss = 0;
     y.loss = 0;
+    z.loss = 0;
 
     x.rank = 1;
     y.rank = 0;
+    z.rank = 0;
+
     return true;
   }
 
@@ -262,9 +371,16 @@ class HeapRecord {
         y.parent = x;
         x.children.unshift(y);
         x.rank++;
+        x.loss = 0;
+        y.loss = 0;
+
         let z = x.children[x.children.length - 1];
 
-        if (z.isPassive()) {
+        if (z.isPassiveLinkable()) {
+          self.root.children.push(z);
+          z.parent = self.root;
+          x.children.pop();
+        } else if (z.isPassive()) {
           let index = self.root.firstPassiveChildIndex();
           self.root.children.splice(index, 0, z);
           z.parent = self.root;
@@ -287,12 +403,15 @@ class HeapRecord {
     if (!x)
       return false;
 
-    addP("...<b>OneNodeLossReduction</b> on node <b>" + x.key + " </b> with loss = <b>" + x.loss +"</b>");
+    addP("...<b>OneNodeLossReduction</b> on node <b>" + x.key + " </b>");
 
     let y = x.parent;
 
     this.root.children.unshift(x);
     x.parent = this.root;
+
+    y.children.splice(y.children.indexOf(x), 1);
+
     x.loss = 0;
 
     if(y.isActive()) {
@@ -300,8 +419,6 @@ class HeapRecord {
        if (!y.isActiveRoot())
           y.loss++;
     }
-
-
 
     return true;
   }
@@ -317,7 +434,7 @@ class HeapRecord {
       let y = null;
 
       for (let c of map[key]) {
-        if (c.loss == 1) {
+        if (c.loss == 1 && c.isActive() && !c.isActiveRoot()) {
           if (x)
             y = c;
           else
@@ -340,15 +457,17 @@ class HeapRecord {
           x.children.unshift(y);
           y.parent = x;
 
+          z.children.splice(z.children.indexOf(y), 1);
+
           x.rank++;
           x.loss = 0;
           y.loss = 0;
 
-          z.children.splice(z.children.indexOf(y), 1);
+          
 
           if (z.isActive()) {
               z.rank--;
-              if (z.isActiveRoot()) {
+              if (!z.isActiveRoot()) {
                   z.loss++;
               }
           }
@@ -362,7 +481,7 @@ Globals
 */
 
  let margin = {top: 20, right: 20, bottom: 20, left: 20};
- let width = 1200;
+ let width = 1250;
  let height = 500;
  let bodyWidth = width / 3;
  let target = null;
@@ -464,6 +583,7 @@ function randomInsertOne() {
   
   h1 = new HeapRecord();
   for (let v of arr1){
+    clearP();
     addP("Insert <b>" + v + "</b>")
     h1 = insert(h1, v);
     clear(g1);
@@ -666,15 +786,12 @@ function decreaseKey(h, v) {
   
   x.parent = h.root;
 
-
+  x.loss = 0;
 
   if (x.isActive()) {
     h.root.children.unshift(x);
     if (y.isActive()) {
       y.rank--;
-      if (!y.isActiveRoot()){
-      y.loss++;
-      }
     }
     x.loss = 0;
   } else if (x.isPassiveLinkable()) {
@@ -683,6 +800,10 @@ function decreaseKey(h, v) {
    else {
     let index = h.root.firstPassiveChildIndex();
     h.root.children.splice(index, 0, x);
+  }
+
+  if (y.isActive() && !y.isActiveRoot()){
+      y.loss++;
   }
 
   addP("...Add the target <b>" + x.key + "</b> to be the children root");
@@ -740,7 +861,6 @@ function deleteMin(h) {
   addP("...Find the new root at <b>" + minNode.key + "</b>");
 
 
-  let i = minNode.firstPassiveChildIndex();
   for (let c of h.root.children) {
     if (c != minNode) {
       addP("...Link <b>" + c.key + "</b> to the root");
@@ -750,7 +870,7 @@ function deleteMin(h) {
         minNode.children.push(c);
       }
       else {
-        minNode.children.splice(i, 0, c);
+        minNode.children.splice(minNode.firstPassiveChildIndex(), 0, c);
       }
     }
       c.parent = minNode;
@@ -767,12 +887,29 @@ function deleteMin(h) {
     addP("...Move the front node <b>" + c.key + "</b> to the back of the Q");
     h.head.shift();
     h.head.push(c);
-    for(let k = c.children.length -1; k >= Math.max(0, c.children.length-2); k--) {
-        if (c.children[k].isPassive()) {
+    let ct = 2;
+    while(ct--){
+        let k = c.children.length -1;
+        if(k < 0)
+          continue;
+        if (c.children[k].isPassiveLinkable()) {
           addP("......Link the rightmost child of " + c.key + "</b> : <b> " + c.children[k].key +"</b> to the root");
-          minNode.children.splice(i, 0, c.children[k]);
+          minNode.children.push(c.children[k]);
           c.children[k].parent = minNode;
           c.children.pop();
+          if (!c.isActiveRoot() && c.isActive()) {
+            c.loss++;
+          }
+        } else if (c.children[k].isPassive()) {
+          addP("......Link the rightmost child of " + c.key + "</b> : <b> " + c.children[k].key +"</b> to the root");
+          minNode.children.splice(minNode.firstPassiveChildIndex(), 0, c.children[k]);
+          c.children[k].parent = minNode;
+          c.children.pop();
+
+          if (!c.isActiveRoot() && c.isActive()) {
+            c.loss++;
+          }
+
         }
     }
   }
@@ -861,13 +998,31 @@ function merge(x, y) {
    smallRootHeap.head = smallSizeHeap.head;
 
 
-   if(smallRootHeap.rootDegreeReduction()) {
-       smallRootHeap.ActiveRootReduction();
-   }
-   if(smallRootHeap.ActiveRootReduction()) {
-      smallRootHeap.rootDegreeReduction();
-   }
+  let numA = 1;
+  let numR = 1;
 
+  while (true) {
+    let stop = true;
+    if (numA) {
+      if (smallRootHeap.ActiveRootReduction()){
+        numA--;
+        stop = false
+      }
+    }
+
+    if (numR) {
+      if(smallRootHeap.rootDegreeReduction()) {
+        numR--;
+        stop = false;
+      }
+    }
+
+    if(stop)
+      break;
+
+  }
+
+  
    return smallRootHeap;
 }
 
@@ -883,15 +1038,16 @@ function clear(g) {
 function draw(g, h) {
 
   let queue = h.headJson(0);
-  let fixList = h.fixListJson(0);
+  let fixList = h.fixListJson();
   let data = h.rootJson();
 
   let offset = 0.05;
-
+  let r2 = 30;
 
  if(queue) {
+
       let list = d3.tree()
-                    .size([height*offset  - margin.top - margin.bottom, bodyWidth - margin.left-margin.right]);
+                    .size([height*offset  - margin.top - margin.bottom, Math.min(queue["length"] * r2, bodyWidth) - margin.left-margin.right]);
 
       let queueNodes = d3.hierarchy(queue, function(d) {
             return d.children;
@@ -935,21 +1091,22 @@ function draw(g, h) {
     }
 
     if (fixList) {
+          console.log(fixList);
 
           let list = d3.tree()
-                        .size([height*offset  - margin.top - margin.bottom, bodyWidth - margin.left-margin.right]);
+                        .size([height*offset  - margin.top - margin.bottom, Math.min(fixList["length"] * r2, bodyWidth)  - margin.left-margin.right]);
 
-          let queueNodes = d3.hierarchy(fixList, function(d) {
+          let fixNodes = d3.hierarchy(fixList, function(d) {
                 return d.children;
           });
 
-          queueNodes = list(queueNodes);
+          fixNodes = list(fixNodes);
 
 
-          g.selectAll(".fixListLink")
-              .data(queueNodes.descendants().slice(1))
+          g.selectAll(".fixLink")
+              .data(fixNodes.descendants().slice(1))
               .enter().append("path")
-              .attr("class", "fixListLink")
+              .attr("class", "fixLink")
               .attr("transform", function(d) { 
                     return "translate(" + 0 + "," + (height *offset ) + ")"; })
               .attr("d", function(d) {
@@ -958,29 +1115,29 @@ function draw(g, h) {
           });
 
 
-          let queueNode = g.selectAll(".queueNode")
-              .data(queueNodes.descendants())
+          let fixNode = g.selectAll(".fixNode")
+              .data(fixNodes.descendants())
               .enter()
               .append("g")
               .attr("transform", function(d) { 
                     return "translate(" + 0 + "," + (height * offset ) + ")"; });
 
 
-            queueNode.append("circle")
-              .attr("class", "queueNode")
+            fixNode.append("circle")
+              .attr("class", "fixNode")
               .attr("transform", function(d) { 
                 return "translate(" + d.y + "," + d.x + ")"; })
-              .attr("r", 15)
-              .attr("fill", function(d){return d.data.active ? d.data.active.flag ? "white" : "red" : "red"  })
+              .attr("r", 7)
+              .attr("fill", function(d){return d.data.color  })
 
 
-            queueNode.append("text")
-              .attr("dy", ".35em")
+            fixNode.append("text")
+               .attr("dy", ".35em")
               .attr("x", function(d){ return d.y})
               .attr("y", function(d){return d.x})
               .style("text-anchor", "middle")
-              .style("font", "24px times")
-              .text(function(d){return d.data.key}); 
+              .style("font", "12px times")
+              .text(function(d){return d.data.key});  
 
 
 

@@ -33,7 +33,7 @@
       <h2> Rank</h2>
       <img src="rank.png" style="float:left; max-width:30%">
       <ul>
-        <li><p>Number of Active children</p></li>
+        <li><p>Number of Active/White children</p></li>
         <li><p>Only defined for Active/White Nodes</p></li>
         <li><p>Undefined for Passive/Red Nodes</p></li>
       </ul>
@@ -54,21 +54,19 @@
       <h2>Loss</h2>
       <img src="loss.png" style="float:left; max-width:30%">
       <ul>
-        <li><p>Number of Active/White children lost</p></li>
-        <li><p>Active roots have loss 0</p></li>
+        <li><p>Number of children lost</p></li>
         <li><p>Only defined for Active/White Nodes</p></li>
-        <li><p>Undefined for Passive/Red Nodes</p></li>
-
+        <li><p>However, Active roots always have loss 0</p></li>
       </ul>
      
      </fieldset>
 
       <fieldset>
-      <h2>Linkable Passive Node</h2>
+      <h2>Psssive Linkable Node</h2>
       <img src="linkable.png" style="float:left; max-width:30%">
       <ul>
         <li><p>All children and itself are passive</p></li>
-        <li><p>Can only be a Passive/White Nodes</p></li>
+        <li><p>All Psssive Linkable Nodes are the rightmost children in the tree</p></li>
         <li><p>e.g. Node 4, 9</p></li>
 
       </ul>
@@ -80,7 +78,9 @@
       <h2>Queue(Q)</h2>
       <img src="queue.png" style="float:left; max-width:30%">
       <ul>
-        <li><p>All non-root nodes are maintained in a Queue(Q)</p></li>
+        <li><p>All non-root nodes are maintained in a Queue(Q) with position <i>p</i></p></li>
+         <li><p>e.g. Node 7 in position 1, Node 9 in position 7</p></li>
+         <li><p>Q is used to ensure all nodes have <i>O(logN)</i> degrees. More details in the next section</p></li>
       </ul>
      
      </fieldset>
