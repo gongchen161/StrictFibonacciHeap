@@ -59,7 +59,7 @@ Globals
     .style("text-anchor", "left")
     .style("font", "12px times")
     .style("font-weight", "bold")
-    .text("Old H?");
+    .text("Previous H?");
 
 
 let g1 = body
@@ -110,7 +110,7 @@ function randomInsertOne() {
   }
   ht = h1;
   clear(gt);
-  lt.text("Old H1");
+  lt.text("Previous H1");
   draw(gt, ht);
   
   arr1 = [];
@@ -142,7 +142,7 @@ function randomInsertTwo() {
 
   ht = h2;
   clear(gt);
-  lt.text("Old H2");
+  lt.text("Previous H2");
   draw(gt, ht);
   
   arr2 = [];
@@ -176,7 +176,7 @@ function insertOne() {
 
   ht = h1;
   clear(gt);
-  lt.text("Old H1");
+  lt.text("Previous H1");
   draw(gt, ht);
   addP("Insert " + v);
   h1 = insert(h1, v);
@@ -196,7 +196,7 @@ function insertTwo() {
   }
   ht = h2;
   clear(gt);
-  lt.text("Old H2");
+  lt.text("Previous H2");
   draw(gt, ht);
   addP("Insert " + v);
   h2 = insert(h2, v);
@@ -208,7 +208,7 @@ function mergeTwo() {
   clearP();
   ht = h1;
   clear(gt);
-  lt.text("Old H1");
+  lt.text("Previous H1");
   draw(gt, ht);
 
   addP("Merge H1 and H2");
@@ -227,7 +227,7 @@ function deleteMinOne() {
   }
   ht = h1;
   clear(gt);
-  lt.text("Old H1");
+  lt.text("Previous H1");
   draw(gt, ht);
 
   addP("Delete the root/min <b>" + h1.root.key + "</b>");
@@ -246,7 +246,7 @@ function deleteMinTwo() {
 
   ht = h2;
   clear(gt);
-  lt.text("Old H2");
+  lt.text("Previous H2");
   draw(gt, ht);
   
   addP("Delete the root/min <b>" + h2.root.key + "</b>");
@@ -259,13 +259,18 @@ function decrease() {
   clearP();
   let v = parseInt(document.getElementById("dkey").value);
 
-  if (target == null || isNaN(v)){
-      addP("Invalid Decrease Key");
+  if (target == null){
+      addP("Invalid Decrease Key (Please select a node by clicking on a node in H1/H2 first)");
       return;
   }
 
+  if (isNaN(v)) {
+     addP("Invalid Decrease Key (Please enter a valid number)");
+     return;
+  }
+
    if (target.key <= v){
-      addP("You should decrease the key");
+      addP("Invalid Decrease Key (Please enter a number < the current key)");
       return;
   }
 
@@ -273,7 +278,7 @@ function decrease() {
   if (h1.findNode(target)) {
       ht = h1;
       clear(gt);
-      lt.text("Old H1");
+      lt.text("Previous H1");
       draw(gt, ht);
 
       addP("Decrease key <b>" + target.key + "</b> to <b>" + v + "</b>");
@@ -283,15 +288,15 @@ function decrease() {
   } else if (h2.findNode(target)) {
       ht = h2;
       clear(gt);
-      lt.text("Old H2");
+      lt.text("Previous H2");
       draw(gt, ht);
 
       addP("Decrease key <b>" + target.key + "</b> to <b>" + v + "</b>");
       h2 = decreaseKey(h2, v);
       clear(g2);
-      draw(g2, h1);
+      draw(g2, h2);
   } else {
-    addP("invalid decrease key");
+    addP("invalid decrease key (Invalid node)");
   }
 
   target = null;

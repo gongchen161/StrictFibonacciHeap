@@ -51,21 +51,21 @@
         </ol>
 
         <ul>
-            <li>Trivially, all operations are <i>O(1)</i>, and we performed constant amount of each step.</li>
+            <li>Trivially, all operations are <i>O(1)</i>, and we performe a constant amount of each step.</li>
             <li>Note, 3 Active Root Reduction + 2 Root Degree Reduction decreases both Root degree and Active Root numbers by 1. Since the violations could be broken by 2 at most(one from x and one from loss reduction), step 5 guarantees no violations afterward</li>
           </ul>
 
         <h3> Effects on Invariants</h4>
         <ul>
-        <li><b>I1</b>: This is trivially true as linking to the root(passive) does not affect I1 at all and the transformations in step 4 and 5 does not cause this to be violated(as explained before)</li>
+        <li><b>I1</b>: This is trivially true as linking to the root(passive) does not affect I1 at all and the transformations in step 4 and 5 do not cause this to be violated(as explained before)</li>
 
-         <li> <b>I2</b>: Let y be the parent of x, if y and x are both active nodes, then the total loss will increase by 1 and may cause I3 to be violated by 1 (L = R + 2). However,by Lemma 3, we are guaranteed be able to perform one loss reduction in step 4.</li>
+         <li> <b>I2</b>: Let y be the parent of x, if y and x are both active nodes, then the total loss will increase by 1 and may cause I3 to be violated by 1 (L = R + 2). However,by Lemma 3, we are guaranteed to be able to perform one loss reduction in step 4.</li>
 
-         <li> <b>I3</b>: If both x and its original parent was active, the total number of active root may increase to R + 2. However, by Lemma 4, we are guaranteed be able to perform the reductions in step 5.</li>
+         <li> <b>I3</b>: If both x and its original parent was active, the total number of active root may increase to R + 2. However, by Lemma 4, we are guaranteed to be able to perform the reductions in step 5.</li>
 
          <li> <b>I4</b>: The root degree increases by 1 after adding x. If this makes the root degree to be R + 4(violation), then by Lemma 5, we can perform the transformations in Step 5 to bring down the root degree (and active node number)</li>
 
-          <li> <b>I5</b>: No non-root nodes gets new nodes and no transformation will break this invariant.</li>
+          <li> <b>I5</b>: No non-root nodes get new nodes and no transformation will break this invariant.</li>
 
           <li>So, all 5 invariants are kept after decrease key</li>
  
@@ -104,7 +104,7 @@
            </p>
 
            <p>
-            All nodes in the larger heap remains their active/passive status and have their p pushed back by size Of Small Heap position, but N is also increased by the same size. So 2N - p actually increases and the constraints strengthened - no violations
+            All nodes in the larger heap remain their active/passive status and have their p pushed back by size Of Small Heap position, but N is also increased by the same size. So 2N - p actually increases and the constraints strengthened - no violations
            </p>
            </li>
           <li>So, all 5 invariants are kept after Merge</li>
@@ -121,7 +121,7 @@
         </ol>
 
           <ul>
-            <li>Since this is just merge, no invariants are broken</li>
+            <li>Since this is essentially just a Merge operation, no invariants are broken</li>
           </ul>
       </fieldset>
 
@@ -137,7 +137,7 @@
 
           <li>Do this twice: move the first node, y, in Q to the back. If y has two passive children, link both to the root.</li>
           <li>Perform 0 or 1 Loss Reduction.</li>
-          <li>Perform <i>O(LogN)</i> numbers of Active root reduction and Root Degree Reduction until none is possible.(Note we need O(LogN) times because every 2 Active root reduction + 3 Root Degree Reduction reduces root degree by 1, and the new root degree increases by at most <i>2logN + 12 + 4</i>(By I5 and &le; 4 new nodes from step 5), and Active Roots increses by at most R(by Lemma 2, x had at most R active children)</li>
+          <li>Perform <i>O(LogN)</i> numbers of Active root reduction and Root Degree Reduction until none is possible.(Note we need O(LogN) times because every 2 Active root reduction + 3 Root Degree Reduction reduces root degree by 1, and the new root degree increases by at most <i>2logN + 12 + 4</i>(By I5 and &le; 4 new nodes from step 5), and Active Roots increse by at most R(by Lemma 2, x had at most R active children)</li>
         </ol>
 
          <ul>
@@ -148,11 +148,11 @@
 
          <li><b>I1</b>: Trivially, no effects as no new active nodes are formed.</li>
 
-         <li> <b>I2</b>: This could be violated by at most 1 because R and N are decreased while the total loss remain the same. However, by Lemma 3, we can perform one loss reduction in step 6 to bring it back within the range</li>
+         <li> <b>I2</b>: This could be violated by at most 1 because R and N are decreased while the total loss remains the same. However, by Lemma 3, we can perform one loss reduction in step 6 to bring it back within the range</li>
 
-         <li> <b>I3</b>: As mentioned above, Active Roots increses by at most R, so we will perform step 7 <i>O(logN)</i> times to bring it down.</li>
+         <li> <b>I3</b>: As mentioned above, Active Roots are increased by at most R, so we will perform step 7 <i>O(logN)</i> times to bring it down.</li>
 
-         <li> <b>I4</b>: As mentioned above, Root degree increses by at most <i>2logN + 12 + 4</i>, so we will perform step 7 <i>O(logN)</i> times to bring it down.</li>
+         <li> <b>I4</b>: As mentioned above, Root degree is increased by at most <i>2logN + 12 + 4</i>, so we will perform step 7 <i>O(logN)</i> times to bring it down.</li>
 
           <li> <b>I5</b>: Since N is decreased by 1, the constraints are strengthened. And this is why we perform step 5. By removing two nodes to the back, all the other nodes have p decreased by 2 or 3 (depends on if the node was before or after the new min node). Thus, <i>2n - p</i> does not increase and the constraints remain valid for these nodes. 
            </p>

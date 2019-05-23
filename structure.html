@@ -44,7 +44,7 @@
          
 
           <li>
-             Given all children of a nodes should be arranged in the order of active, passive non-linkable, and passive linkable, we should be able to add a node to the leftmost, first-passive-position(just for the root when performing decrease key), rightmost in <i>O(1)</i>
+             Given all children of a node should be arranged in the order of active, passive non-linkable, and passive linkable, we should be able to add a node to the leftmost, first-passive-position(just for the root when performing decrease key), rightmost in <i>O(1)</i>
           </li>
 
            <li>
@@ -53,7 +53,7 @@
 
         </ul>
 
-        <p> The design below is one possible structure suggested in the paper by using poiners only(see reference). Note this is not the only possible design, and below is intended to provide a general idea on how the above is possible, not a detail description </p>
+        <p> The design below is one possible structure suggested in the paper by using pointers only(see reference). Note this is not the only possible design, and below is intended to provide a general idea on how the above is possible, not a detail description </p>
      
       <fieldset>
         <h2> Structure In the Paper </h2>
@@ -70,14 +70,14 @@
         </ul>
         <p>If we need to perform an Active Root Reduction, we just need to check if part 1 is non-empty. If a reduction is performed, one node becomes an active node with loss 0, so it's removed from this list. And another node's rank is increased by 1, so we just need to go to the Rank-List(described below), and follow the pointer to the correct position in the Fix-List. </p>
 
-         <p>If we need to perform a One or Two Nodes Loss Reduction, we just need to check if part 4 is non-empty. If a One Node Loss Reduction is performed, the target node becomes an active root, so it may need to move to part 1 or 2 - by just following the pointer in the Rank-List. If a Two Node Loss Reduction is performed, both nodes becomes active nodes with loss 0, so they will be removed from the Fix-List, and we need to check if there is one remaining nodes with the same rank and loss 1 is still in the Fix-List, if so, it should be moved to part 3.
+         <p>If we need to perform a One or Two Nodes Loss Reduction, we just need to check if part 4 is non-empty. If a One Node Loss Reduction is performed, the target node becomes an active root, so it may need to move to part 1 or 2 - by just following the pointer in the Rank-List. If a Two Node Loss Reduction is performed, both nodes become active nodes with loss 0, so they will be removed from the Fix-List, and we need to check if there is one remaining node with the same rank and loss 1 is still in the Fix-List, if so, it should be moved to part 3.
 
           <p>In summary, by maintaining a Fix-List, An Active Root Reduction or Loss Reduction can be found in O(1) time. And after the reduction, some nodes may need to move, but all these can be checked and done in O(1) trivially by following the pointers. Also trivially, because of the structure, nodes for Root Degree Reduction can be found by checking root's last 3 children.</p>
        
        
        <h2>Rank-List</h2>
         <p>We maintain a Rank-List in which it contains R + 1 nodes(as R is the maximum rank) each representing rank 0, 1, 2, ...R, as a linked list.</p>
-        <p> The node representing rank r in the Rank-List has a pointers to the first active root with rank r in the part 1 or 2 of Fix-List, and a pointers to the first active node with rank r and positive loss in the part 3 or 4 of Fix-List. As explained above, these two pointers allow the transfer of nodes in the Fix-List O(1) </p>
+        <p> The node representing rank r in the Rank-List has a pointer to the first active root with rank r in part 1 or 2 of the Fix-List, and a pointers to the first active node with rank r and positive loss in part 3 or 4 of the Fix-List. As explained above, these two pointers allow the transfer of nodes in the Fix-List O(1) </p>
 
 
 
@@ -90,7 +90,7 @@
         </ul>
 
          <h2>Heap</h2>
-         <p>Every heap maintains its own Rank-List, Fix-List, root, Q, and a active flag, and a pointer to the first passive child of the root(so we can insert a passive non-linkable child to the root in O(1) when decreasing key). When a merge happens, all nodes in the smaller heap becomes passive. so The new Rank-List and Fix-List is just the larger size heap. All active nodes in the same heap pointing to the same TRUE active flag that the heap has. And to make all nodes in a heap passive in O(1), we just need to change the active flag to FALSE. A node is consider active if and only if it's pointing to a TRUE active flag. A node is passive if it's pointing to null or a FALSE active flag e.g. </p>
+         <p>Every heap maintains its own Rank-List, Fix-List, root, Q, and an active flag, and a pointer to the first passive child of the root(so we can insert a passive non-linkable child to the root in O(1) when decreasing key). When a merge happens, all nodes in the smaller heap becomes passive. so The new Rank-List and Fix-List is just the larger size heap. All active nodes in the same heap pointing to the same TRUE active flag that the heap has. And to make all nodes in a heap passive in O(1), we just need to change the active flag to FALSE. A node is considered to be active if and only if it's pointing to a TRUE active flag. A node is passive if it's pointing to null or a FALSE active flag e.g. </p>
          <img src="makeAllPassive.png" style="max-width:40%">
 
       </fieldset>

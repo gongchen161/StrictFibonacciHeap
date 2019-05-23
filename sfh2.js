@@ -170,13 +170,19 @@ function decrease() {
   clearP();
   let v = parseInt(document.getElementById("dkey").value);
 
-  if (target == null || isNaN(v)){
-      addP("Invalid Decrease Key");
+
+  if (target == null){
+      addP("Invalid Decrease Key (Please select a node by clicking on a node in the container first)");
       return;
   }
 
+  if (isNaN(v)) {
+     addP("Invalid Decrease Key (Please enter a valid number)");
+     return;
+  }
+
    if (target.key <= v){
-      addP("You should decrease the key");
+      addP("Invalid Decrease Key (Please enter a number < the current key)");
       return;
   }
 
