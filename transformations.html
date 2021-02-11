@@ -31,7 +31,7 @@
     </div>
 
     <div id ="body">
-     
+      <p>Sometimes, the 5 invariants will get violated in heap operations, and we can perform below transformations to restore the properties</p>
      <fieldset>
       <h2>Link</h2>
       <img src="link.png" style="float:left; max-width:40%">
@@ -59,13 +59,13 @@
 
       <h3>Result</h3>
       <ul>
-        <li>Root Degree: No change of +1 (if there is <i>z</i>)</li>
+        <li>Root Degree: No change or +1 (if there is <i>z</i>)</li>
         <li>Total Loss: No change </li>
         <li>Active Roots: -1 (<i>y</i> is no longer an active root)  </li>
       </ul>
 
       <h3>Effects on Invariants</h3>
-      <p><b>I1</b>: No violations. The only change in active node is <i>y</i>  the <i>(r+1)-th</i> rightmost child of <i>x</i>, this is OK since <i>y</i> has rank <i>r</i> and loss 0</p>
+      <p><b>I1</b>: No violations. The only change in active node is <i>y</i> -- the <i>(r+1)-th</i> rightmost child of <i>x</i>, this is OK since <i>y</i> has rank <i>r</i> and loss 0</p>
       <p><b>I2</b>: Trivially, no violation happens to I2 as no changes on the total loss</p>
 
 
@@ -73,7 +73,7 @@
 
      
       
-      <p><b>I4</b>: I4 could be violated as the root degree can increase by 1, but together with Root Degree Reductions(See below and Summary), we can fix the structure in const time</p>
+      <p><b>I4</b>: I4 could be violated as the root degree can increase by 1, but together with Root Degree Reductions(See below and Summary), we can fix the structure in constant time</p>
 
      <p><b>I5</b>: No violations. The degree of <i>x</i> increases by 1, but we detach <i>z</i> to keep it the same. And, if there is no <i>z</i> to detach, then all children of <i>x</i> is active, and from Lemma 2, we know <i>x</i> has at most degree R</p>
 
@@ -89,7 +89,7 @@
         <li>Make <i>x</i> and <i>y</i> active</li>
         <li>Link <i>z</i> to <i>y</i></li>
         <li>Link <i>y</i> to <i>x</i></li>
-        <li>Since <i>x</i> is active, it now has loss 0 and rank 1(because of <i>y</i>), and make <i>x</i> the leftmost child of the root</li>
+        <li>Since <i>x</i> is active, it now has loss 0 and rank 1(i.e. <i>y</i>), and make <i>x</i> the leftmost child of the root</li>
         <li><i>y</i> now has loss 0 and rank 0</li>
       </ul>
 
@@ -105,7 +105,7 @@
       <p><b>I2</b>: Trivially, no violation to I2 as no changes to the total loss</p>
       <p><b>I3</b>: It could break I3 as the Active Roots increase by 1, but together with Active Root Reduction, we are still safe</p>
       <p><b>I4</b>: This transformation can be used when I4 is violated since it can decrease the root degree by 2. By Lemma 5, we are guaranteed to find three rightmost passive linkable children <i>x, y, z</i> of the <i>root</i> to perform this transformation</p>
-      <p><b>I5</b>: No violations. Both <i>x</i> and <i>y</i> get a new child. But, they go from passive to an active node with loss 0, so they are allowed to have one more child.</p>
+      <p><b>I5</b>: No violations. Both <i>x</i> and <i>y</i> get a new child. But they change from being a passive node to an active node with loss 0, so they are allowed to have one more child.</p>
 
       <p><b>Note</b>: Because Active Root Reduction increases the root degree by 1 and Root Degree Reduction increases the Active Roots number by 1, they are often performed together to ensure no violations to all 5 invariants (also see Summary)</p>
 
@@ -119,30 +119,30 @@
       <img src="oneNodeLossReduction.png" style="float:left; max-width:40%">
      <h3>Performed on an active node <i>x</i> with loss 2</h3>
       <ul>
-        <li>Link <i>x</i> to the root. <i>x</i> is now an active root thus has loss 0 now</li>
-        <li><i>x's</i> original parent <i>y</i> must be active(Given <i>x</i> had loss 2, <i>x</i> was not an active root), so decrease y's rank by 1 and increase <i>y's</i> loss by 1 if <i>y</i> is not an active root.</li>
+        <li>Link <i>x</i> to the root. <i>x</i> is now an active root, thus it has loss 0 now</li>
+        <li><i>x's</i> original parent <i>y</i> must be active(Given <i>x</i> had loss 2; <i>x</i> was not an active root), so we decrease y's rank by 1 and increase <i>y's</i> loss by 1 if <i>y</i> is not an active root.</li>
       </ul>
 
 
       <h3>Result</h3>
       <ul>
-        <li>Root Degree: +1 (because of <i>x</i>)</li>
+        <li>Root Degree: +1 (i.e. <i>x</i>)</li>
         <li>Total Loss: -1 or -2 (depends on if <i>y</i> was an active root or not)</li>
         <li>Active Roots: +1 (<i>x</i> is a new active root)  </li>
       </ul>
 
       <h3>Effects on Invariants</h3>
       <p>
-         <p><b>I1</b>: No violations. For <i>y's</i> active children in <i>x's</i> right, they are not affected. For the children on the left, their constraints are weakened, i.e. goes from at least <i>i - 1</i> to at least <i>i - 2</i> </p>
+         <p><b>I1</b>: No violations. For <i>y's</i> active children on <i>x's</i> right side, they are not affected. For the children on the left side, their constraints are weakened, i.e. goes from at least <i>i - 1</i> to at least <i>i - 2</i> </p>
 
           <p><b>I2</b>: This transformation can be used when I2 is violated since it can decrease the loss. By Lemma 3, if the loss constraint is violated by 1, together with <i>Two Node Loss Reduction</i>(described below), we can bring down the total loss to within the constraint</p>
 
       
-        <p><b>I3 and I4</b>: It could violate I3 and I4 as the Active Roots and Root degree increase by 1, but as explained above, we can perform Active Root Reductions and Root Degree Reductions together to bring them down if happens</p>
+        <p><b>I3 and I4</b>: It could violate I3 and I4 as the Active Roots and Root degree increase by 1, but as explained above, we can perform Active Root Reductions and Root Degree Reductions together to bring them down if needed</p>
 
-        <p><b>I5</b>: Notice this has no effects on I5 as no non-root nodes get new child</p>
+        <p><b>I5</b>: Notice this has no effects on I5 as no non-root nodes get new children</p>
 
-        <p><b>Note</b>: Because of I2,I3,and I4, Loss reduction, Active Root Reductions and Root Degree Reductions are always performed together when necessary(also see Summary)</p>
+        <p><b>Note</b>: Because of I2, I3 and I4, Loss reduction, Active Root Reductions and Root Degree Reductions are always performed together when necessary(also see Summary)</p>
 
      </fieldset>
 
@@ -150,12 +150,12 @@
       <fieldset>
       <h2>Two Node Loss Reduction</h2>
       <img src="twoNodeLossReduction.png" style="float:left; max-width:40%">
-       <h3>Performed on two active nodes <i>x, y</i> with equal rank <i>r</i> and loss exactly 1</h3>
+       <h3>Performed on two active nodes <i>x, y</i> with equal rank <i>r</i> and loss == 1</h3>
       <ul>
         <li><i>w.l.o.g, x < y</i></li>
         <li>Link <i>y</i> to <i>x</i></li>
         <li>Make both <i>x</i> and <i>y</i> has loss 0</li>
-        <li>For <i>y's</i> original parent <i>z</i>, its rank is decreased by 1 and its loss is decreased by 1 if it is not an active root</li>
+        <li>For <i>y's</i> original parent <i>z</i>, its rank is decreased by 1 and its loss is decreased by 1 (if it is not an active root)</li>
       </ul>
 
       <h3>Result</h3>
@@ -171,7 +171,7 @@
       <p><b>I2</b>: It decreases the loss by at least 1. By Lemma 3, and pair this with <i>One Node Loss Reduction</i>, we can keep I2.</p>
 
       <p><b>I3 and I4</b>: Unlike One Node Loss Reduction, active roots and root degree are not increased, so no violations</p>
-      <p> <b>I5</b>: The degree of x is increased by 1, however,it goes from an active node with positive loss to an active node with loss 0, so it's allowed to have one more child.</p></p>
+      <p> <b>I5</b>: The degree of x is increased by 1, however, it changes from being an active node with positive loss to an active node with loss 0, so it's allowed to have one more child.</p></p>
 
      
      </fieldset>
@@ -181,9 +181,9 @@
       <h2>Summary</h2>
       <img src="transformationSummary.png" style= "max-width:70%">
 
-      <p>Note from the above chart and analysis, no transformations can break I1, I2 and I5. And if we perform Active Root Reduction with Root Degree Reduction (with One or Two Nodes Loss Reduction), no transformations can violate all I1 to I5.</p>
+      <p>Note, from the above analysis and the summary in chart, we can conclude no transformations can break I1, I2 and I5. And if we perform Active Root Reduction with Root Degree Reduction (with One or Two Nodes Loss Reduction), no transformations can violate I1 to I5.</p>
 
-      <p> In the following sections, we will see Active Root Reductions are always paired with Root Degree Reductions to ensure no violations happen to the 5 invariants.. And after a loss reduction is performed, Active Root Reductions and Root Degree Reductions are performed to ensure the invariants</p>
+      <p> In the following sections, we will see Active Root Reductions are always paired with Root Degree Reductions to ensure no violations happen to the 5 invariants. And after a loss reduction is performed, Active Root Reductions and Root Degree Reductions are performed to ensure the invariants aren't broken.</p>
     
      </fieldset>
 
@@ -191,7 +191,11 @@
 
      
     </div>
-
+    <div className="footer">
+      <hr class="line">
+      <p>The analysis on this site is based on <a target="_blank" href="https://www.cs.au.dk/~gerth/papers/stoc12.pdf">Strict Fibonacci Heaps</a></p>
+      <p>2019-2021 <a href="https://gongchen161.github.io/" title="Home">Gong Chen</a> </p>
+    </div>
     </body>
 
 </html>

@@ -35,9 +35,9 @@
       <h2> Rank</h2>
       <img src="rank.png" style="float:left; max-width:30%">
       <ul>
-        <li><p>Number of Active/White children</p></li>
-        <li><p>Only defined for Active/White Nodes</p></li>
-        <li><p>Undefined for Passive/Red Nodes</p></li>
+        <li><p>Number of <i>Active/White</i> children</p></li>
+        <li><p>Only defined for <i>Active/White</i> nodes</p></li>
+        <li><p>Undefined for <i>Passive/Red</i> nodes</p></li>
       </ul>
      
      </fieldset>
@@ -46,8 +46,8 @@
       <h2>Active Root</h2>
       <img src="activeRoot.png" style="float:left; max-width:30%">
       <ul>
-        <li><p>An Active/White node with Passive/Red parent</p></li>
-        <li><p>e.g. Node 2, 7, 8</p></li>
+        <li><p>A special kind of <i>Active/White</i> node -- an <i>Active/White</i> node with <i>Passive/Red</i> parent</p></li>
+        <li><p>e.g. node 2, 7, 8 are active roots</p></li>
       </ul>
      
      </fieldset>
@@ -57,8 +57,9 @@
       <img src="loss.png" style="float:left; max-width:30%">
       <ul>
         <li><p>Number of children lost</p></li>
-        <li><p>Only defined for Active/White Nodes</p></li>
-        <li><p>However, Active roots always have loss 0</p></li>
+        <li><p>Only defined for <i>Active/White</i> nodes</p></li>
+        <li><p>Similar to <i>marks</i> in a Fibonacci Heap</p></li>
+        <li><p>Active roots always have loss 0</p></li>
       </ul>
      
      </fieldset>
@@ -67,9 +68,9 @@
       <h2>Passive Linkable Node</h2>
       <img src="linkable.png" style="float:left; max-width:30%">
       <ul>
-        <li><p>All children and itself are passive</p></li>
+        <li><p>A node where all its children and itself are <i>Passive/Red</i></p></li>
         <li><p>All Passive Linkable Nodes are the rightmost children in the tree</p></li>
-        <li><p>e.g. Node 4, 9</p></li>
+        <li><p>e.g. Node 4, 9 are passive linkable nodes</p></li>
 
       </ul>
      
@@ -80,9 +81,9 @@
       <h2>Queue(Q)</h2>
       <img src="queue.png" style="float:left; max-width:30%">
       <ul>
-        <li><p>All non-root nodes are maintained in a Queue(Q) with position <i>p</i></p></li>
-         <li><p>e.g. Node 7 in position 1, Node 9 in position 7</p></li>
-         <li><p>Q is used to ensure all nodes have <i>O(logN)</i> degrees. More details in the next section</p></li>
+        <li><p>All non-root nodes are maintained in a <i>Queue(Q)</i> with position <i>p</i></p></li>
+         <li><p>e.g. Node 7 is in position 1, Node 9 is in position 7</p></li>
+         <li><p><i>Q</i> is used to ensure all nodes have <i>O(logN)</i> degrees. More details in the next section</p></li>
       </ul>
      
      </fieldset>
@@ -92,7 +93,11 @@
 
      
     </div>
-
+    <div className="footer">
+      <hr class="line">
+      <p>The analysis on this site is based on <a target="_blank" href="https://www.cs.au.dk/~gerth/papers/stoc12.pdf">Strict Fibonacci Heaps</a></p>
+      <p>2019-2021 <a href="https://gongchen161.github.io/" title="Home">Gong Chen</a> </p>
+    </div>
 	</body>
 
 </html>

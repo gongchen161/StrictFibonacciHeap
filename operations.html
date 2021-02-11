@@ -51,7 +51,7 @@
         </ol>
 
         <ul>
-            <li>Trivially, all operations are <i>O(1)</i>, and we performe a constant amount of each step.</li>
+            <li>Trivially, all operations are <i>O(1)</i>, and we perform constant amount of actions for each step.</li>
             <li>Note, 3 Active Root Reduction + 2 Root Degree Reduction decreases both Root degree and Active Root numbers by 1. Since the violations could be broken by 2 at most(one from x and one from loss reduction), step 5 guarantees no violations afterward</li>
           </ul>
 
@@ -59,7 +59,7 @@
         <ul>
         <li><b>I1</b>: This is trivially true as linking to the root(passive) does not affect I1 at all and the transformations in step 4 and 5 do not cause this to be violated(as explained before)</li>
 
-         <li> <b>I2</b>: Let y be the parent of x, if y and x are both active nodes, then the total loss will increase by 1 and may cause I3 to be violated by 1 (L = R + 2). However,by Lemma 3, we are guaranteed to be able to perform one loss reduction in step 4.</li>
+         <li> <b>I2</b>: Let y be the parent of x, if y and x are both active nodes, then the total loss will increase by 1 and may cause I3 to be violated by 1 (L = R + 2). However, by Lemma 3, we are guaranteed to be able to perform one loss reduction in step 4.</li>
 
          <li> <b>I3</b>: If both x and its original parent was active, the total number of active root may increase to R + 2. However, by Lemma 4, we are guaranteed to be able to perform the reductions in step 5.</li>
 
@@ -77,13 +77,18 @@
         <fieldset>
         <h2>Merge - O(1) Worst Case</h2>
         <img src="merge.png" style="float:left; max-width:50%">
-        <h3> To merge H1 and H2, and <i>w.l.o.g</i> assume size of H1 &le; Size of H2</h3>
+        <h3> To merge H1 and H2, and <i>w.l.o.g</i> assume size(H1) &le; Size(H2)</h3>
         <ol>
           <li>Make all nodes in H1 passive - This can be done in <i>O(1)</i> and will be shown in the next section</li>
           <li>Link H1 and H2 such that the root with smaller key becomes the new root</li>
           <li>Set the new Q to be Q1 + larger Root of H1 and H2 + Q2 (note Qi is the Q for Hi)</li>
           <li>Perform 0 or 1 Active Root Reduction and 0 or 1 Root Degree Reduction</li>
         </ol>
+
+
+        <ul>
+          <li>It's easy to see all steps are <i>O(1)</i></li>
+        </ul>
 
         <h4> Effects on Invariants</h4>
       
@@ -93,18 +98,18 @@
 
          <li> <b>I2</b>: Trivially, no violation as the total loss will not increase (passive nodes no longer have loss) while R and N increased.</li>
 
-         <li> <b>I3</b>: The number of active roots of the new heap is the number of active roots in the larger heap, since N (thus R) increases, no violations</li>
+         <li> <b>I3</b>: The number of active roots of the new heap is the number of active roots in the larger heap, since N (thus R) increases -- no violations</li>
 
          <li> <b>I4</b>: The root degree increases by 1 after the linking. If this makes the root degree to be R + 4, then from Lemma 5, we will perform the transformations in step 4</li>
 
-          <li> <b>I5</b>: During the linking, one root node becomes a passive non-root node. However, it had at most <i>R + 3</i> nodes before (by I4), and <i>R + 3 <= 2 log(2N - p) + 9</i> for any p. - no violations
+          <li> <b>I5</b>: During the linking, one root node becomes a passive non-root node. However, it had at most <i>R + 3</i> nodes before (by I4), and <i>R + 3 <= 2 log(2N - p) + 9</i> for any p -- no violations
 
           <p>
-             All nodes in the smaller heap become passive, thus their degree constraints could go from + 10 to just +9. However, for the smaller heap, the new N is at least twice as big as before, and their position is unchanged in the new Q, thus the new constraint is actually increased by at least one - no violations
+             All nodes in the smaller heap become passive, thus their degree constraints could go from + 10 to just +9. However, for the smaller heap, the new N is at least twice as big as before, and their position is unchanged in the new Q, thus the new constraint is actually increased by at least one -- no violations
            </p>
 
            <p>
-            All nodes in the larger heap remain their active/passive status and have their p pushed back by size Of Small Heap position, but N is also increased by the same size. So 2N - p actually increases and the constraints strengthened - no violations
+            All nodes in the larger heap remain their active/passive status and have their p pushed back by <i>k</i> (i.e. <i>k</i>=size of the small heap) position, but N is also increased by the same size. So 2N - p actually increases and the constraints strengthened -- no violations
            </p>
            </li>
           <li>So, all 5 invariants are kept after Merge</li>
@@ -137,18 +142,18 @@
 
           <li>Do this twice: move the first node, y, in Q to the back. If y has two passive children, link both to the root.</li>
           <li>Perform 0 or 1 Loss Reduction.</li>
-          <li>Perform <i>O(LogN)</i> numbers of Active root reduction and Root Degree Reduction until none is possible.(Note we need O(LogN) times because every 2 Active root reduction + 3 Root Degree Reduction reduces root degree by 1, and the new root degree increases by at most <i>2logN + 12 + 4</i>(By I5 and &le; 4 new nodes from step 5), and Active Roots increse by at most R(by Lemma 2, x had at most R active children)</li>
+          <li>Perform <i>O(LogN)</i> numbers of Active root reduction and Root Degree Reduction until none is possible.(Note we need O(LogN) times because every 2 Active root reduction + 3 Root Degree Reduction reduces root degree by 1, and the new root degree increases by at most <i>2logN + 12 + 4</i>(By I5 and there are &le; 4 new nodes from step 5), and Active Roots increse by at most R(by Lemma 2, x had at most R active children)</li>
         </ol>
 
          <ul>
-            <li>This is <i>O(LogN)</i> since all operations are <i>O(1)</i>, but we need to perform the transformations O(LogN) times</li>
+            <li>This is <i>O(LogN)</i> since all operations are <i>O(1)</i>, but we need to perform the transformations <i>O(LogN)</i> times</li>
           </ul>
 
         <h4> Effects on Invariants</h4>
 
          <li><b>I1</b>: Trivially, no effects as no new active nodes are formed.</li>
 
-         <li> <b>I2</b>: This could be violated by at most 1 because R and N are decreased while the total loss remains the same. However, by Lemma 3, we can perform one loss reduction in step 6 to bring it back within the range</li>
+         <li> <b>I2</b>: This could be violated by at most 1 because R and N are decreased while the total loss remains the same. However, by Lemma 3, we can perform one loss reduction in step 6 to bring it back within the range.</li>
 
          <li> <b>I3</b>: As mentioned above, Active Roots are increased by at most R, so we will perform step 7 <i>O(logN)</i> times to bring it down.</li>
 
@@ -158,7 +163,7 @@
            </p>
 
            <p>
-            For the two nodes that are moved back to the Q, their constraints reduced from, i.e. for Node 1, <i>2log(2oldN - 1) + 9</i> to <i>2log(2oldN - 2 - (oldN - 2)) + 9</i>. or decreased by 2. But if this is violating the rule, given it has &le; R active nodes, it must have two passive nodes for us to link to the root. Otherwise, no violation.
+            For the two nodes that are moved back to the Q, their constraints reduced from, e.g. for Node 1, <i>2log(2oldN - 1) + 9</i> to <i>2log(2oldN - 2 - (oldN - 2)) + 9</i>, or decreased by 2. But if this violates the rule, given it has &le; R active nodes, it must have two passive nodes for us to link to the root. Otherwise, no violation.
            </p>
            </li>
           <li>So, all 5 invariants are kept after Merge</li>
@@ -170,7 +175,11 @@
 
      
     </div>
-
+    <div className="footer">
+      <hr class="line">
+      <p>The analysis on this site is based on <a target="_blank" href="https://www.cs.au.dk/~gerth/papers/stoc12.pdf">Strict Fibonacci Heaps</a></p>
+      <p>2019-2021 <a href="https://gongchen161.github.io/" title="Home">Gong Chen</a> </p>
+    </div>
     </body>
 
 </html>

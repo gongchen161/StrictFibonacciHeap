@@ -33,25 +33,31 @@
      
 
       <fieldset>
-        <h2>Time Complexity</h2>
-         <p> Strict Fibonacci Heap is the first pointer-based heap implementation that matches the time bounds of Fibonacci heaps in the <b>worst case</b></p>
+        <h2>Time Complexities</h2>
+         <p><a target="_blank" href="https://www.cs.au.dk/~gerth/papers/stoc12.pdf">Strict Fibonacci Heap (Brodal, Lagogiannis & Tarjan, 2012)</a> is the first heap structure that uses pointer-based heap implementation to match the time complexities of Fibonacci Heap in the <b>worst case</b>, as shown in the chart below</p>
         <img src="time.png">
       </fieldset>
       <fieldset>
-        <h2> Basic Structure </h2>
+        <h2> Basic Structure</h2>
        <img src="tree.png" style="float:left; max-width:30%">
         <ul>
           <li><p>Single heap-ordered tree with N nodes</p></li>
-          <li><p>Self-adjusting through transformations to keep the tree in the correct structure</p></li>
-          <li><p>Minimum at root</p></li>
-          <li><p>A node can be either an Active/White node or a Passive/Red node</p></li>
+          <li><p>Self-adjusting through transformations to keep the tree in the desirable structure</p></li>
+          <li><p>Minimum at root (e.g. children nodes are always bigger than their parents)</p></li>
+          <li><p>A node can be either an <i>Active/White</i> node or a <i>Passive/Red</i> node</p></li>
           <li><p>All nodes have <i>O(logN)</i> degree</p></li>
-          <li><p>Root is always Passive/Red</p></li>
-          <li><p>A node's Active/White children are to the left of its Passive/Red children</p></li> 
-          <li><p>Space: <i>O(N)</i></p></li>
+          <li><p>Root is always <i>Passive/Red</i></p></li>
+          <li><p>A node's <i>Active/White</i> children are to the left of its <i>Passive/Red</i></p> children</p></li> 
+          <li><p>Space Complexity: <i>O(N)</i></p></li>
         </ul>
       </fieldset>
 
+    </div>
+
+    <div className="footer">
+      <hr class="line">
+      <p>The analysis on this site is based on <a target="_blank" href="https://www.cs.au.dk/~gerth/papers/stoc12.pdf">Strict Fibonacci Heaps</a></p>
+      <p>2019-2021 <a href="https://gongchen161.github.io/" title="Home">Gong Chen</a> </p>
     </div>
 
 	</body>

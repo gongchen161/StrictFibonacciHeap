@@ -30,9 +30,9 @@
     </div>
 
     <div id ="body">
-    <p> The 5 invariants I1 - I5 listed below are what we will maintain consistently throughout all the heap operations(i.e. DeleteMin, Merge, DecreaseKey, Insert). Given the invariants are satisfied, we will derive and prove some lemmas that will be useful in the analysis in the later sections</p>
+    <p> The 5 invariants (I1 - I5) listed on this page are what we will maintain consistently throughout all heap operations(i.e. DeleteMin, Merge, DecreaseKey, Insert). Given the invariants are satisfied, we will derive and prove some lemmas that will be useful for the analysis in the later sections</p>
 
-    <p> For the analysis below, we define <b><i>R = 2logN + 6</i></b>, and <i>N</i> is used as the size of the heap throughout the entire site</p>
+    <p> For the analysis below, we define <b><i>R = 2logN + 6</i></b>. Please note we will use <i>N</i> as the size of the heap throughout the entire site</p>
 
     <fieldset>
     <h2> I1: For an active node, the i-th rightmost active child has <i>rank + loss &ge; i - 1 </i></h2>
@@ -47,16 +47,16 @@
       <i>r &ge; logN + k + 1 </i> is true</p>
     <p> Note, <i>logN + k + 1  < logN + &radic;<span style="text-decoration:overline;">k*(k+1)</span>+2</i>, so we are proving a stronger statement</p>
 
-    <p>Assume <i>x</i> is an active node with the maximum rank <i>r</i>, we will show the contradiction by proving the subtree, <i>Tx</i>, rooted at <i>x</i> has size <i>N + 1</i>.</p>
+    <p>Assume <i>x</i> is an active node with the maximum rank <i>r</i>, we will show the contradiction by proving the subtree, <i>Tx</i>, rooted at <i>x</i>, has size <i>N + 1</i>.</p>
 
-    <p>Given I1 is satisfied, i.e. All active children of the active nodes in <i>Tx</i> have <i>rank+loss &ge; i - 1</i>, and the total loss is <i>L</i>. And given the contradiction, <i>x</i> has at least <i>r</i> active children. We can construct the minimum <i>Tx</i> by starting with a binomial heap of size <i>2<sup>r</sup></i> or root degree <i>r</i> with all nodes being active (we want the minimum, so we should not keep passive nodes). All nodes satisfy I1 by having <i>rank = i-1</i> and <i>loss =0</i></p>
-    <p>To achieve loss <i>L</i> and keep <i>Tx</i> minimal, we will cut the L biggest grandchildren of <i>x</i> (we can't cut children of <i>x</i> because it needs rank <i>r</i> <r></p>
+    <p>Given I1 is satisfied, i.e. all active children of the active nodes in <i>Tx</i> have <i>rank+loss &ge; i - 1</i>, and the total loss is <i>L</i>. And given the contradiction, <i>x</i> has at least <i>r</i> active children. We can construct the minimum <i>Tx</i> by starting with a binomial heap of size <i>2<sup>r</sup></i> or root degree <i>r</i> with all nodes being active (we want the minimum, so we should not keep passive nodes). All nodes satisfy I1 by having <i>rank = i-1</i> and <i>loss =0</i></p>
+    <p>To achieve loss <i>L</i> and keep <i>Tx</i> minimal, we will cut the L biggest grandchildren of <i>x</i> (we can't cut children of <i>x</i> because it needs rank <i>r</i>)</p>
 
     <p>We know, in a binomial heap, there are <i>j</i> grandchildren of degree <i>r - j - 1</i>, so the total number of grandchildren with degree <i>&ge; r - k -1</i> is <br>
      <i> 1 + 2 + 3 + ... + k = k(k+1)/2 &ge; L </i>
    </p>
 
-   <p> That is, if we cut all these grandchildren, we definitely have loss <i>L</i>, then all grandchildren of degree <i> &le; r - k - 2</i> are kept in <i>Tx</i>, that is at the child, <i>w</i>, of <i>x</i> with degree <i> = r - k - 1 &ge; logN</i>
+   <p> That is, if we cut all these grandchildren, we definitely have loss <i>L</i>, and all grandchildren of degree <i> &le; r - k - 2</i> are kept in <i>Tx</i> -- there is a child, <i>w</i>, of <i>x</i> with degree <i> = r - k - 1 &ge; logN</i>
    didn't lose any of its subtrees, so <i>w</i>  has size <i>&ge; 2<sup>logN</sup> = N</i> <b>=></b> <i>x</i>  has size <i>&ge; N + 1</i>
 
     <p>Thus, by contradiction, we proved Lemma 1</p>
@@ -81,8 +81,8 @@
     </h3>
     <h4>Proof</h4>
     <p> Given lemma 2 and use the Pigeonhole principle, it should be straight forward to see this is true. i.e. 
-    <p>if there are <i>&le; R + 1</i> nodes and <i>L = R + 2</i>, then there is definitely a node with loss <i>&ge; 2 losses</i></p>
-    <p> otherwise, there are <i> > R + 1</i> nodes, either there is a node with loss &ge; 2, or all nodes have loss 1, given <i>R + 1</i>(0 to R) possible ranks, at least two nodes of the same rank have loss 1</p>
+    <p>if there are <i>&le; R + 1</i> nodes and <i>L = R + 2</i>, then there is definitely a node with loss &ge; 2 </p>
+    <p> otherwise, there are <i> > R + 1</i> nodes; either there is a node with loss &ge; 2, or all nodes have loss 1. Given <i>R + 1</i>(0 to R) possible ranks, at least two nodes of the same rank have loss 1</p>
 
     <p> Note again, loss is only defined for active nodes.</p>
 
@@ -106,7 +106,7 @@
     <h3>Lemma 5: If I1-I3 are satisfied, but I4 is violated, i.e. <i>deg(root) &ge; R + 4</i>, then the root has 3 passive linkable children</h3>
     <h4>Proof</h4>
 
-    <p>If the root has <i>x</i> active roots or active children, the root has at least <i>R + 4 - x </i> passive children. Within each subtree rooted at these passive children, if <i>y</i> is the first active node from top down, then y must be an active root. Given I3 is satisfied, there are <i>R + 1 - x</i> active roots remaining we can assign to the <i>R + 4 - x </i> subtrees rooted at these passive children. That is, there are at least 3 of these trees without any active nodes, which means they are passive linkable</p>
+    <p>If the root has <i>x</i> active roots or active children, the root has at least <i>R + 4 - x </i> passive children. Within each subtree rooted at these passive children, if <i>y</i> is the first active node from top down, then y must be an active root. Given I3 is satisfied, there are <i>R + 1 - x</i> remaining active roots we can assign to <i>R + 4 - x </i> subtrees rooted at these passive children. That is, there are at least 3 of these trees without any active nodes, which means they are passive linkable</p>
 </fieldset>
 <fieldset>
     <h2> I5: <i>deg(non-root nodes) &le; 2logN + 12</i></h2>
@@ -122,7 +122,11 @@
 
      
     </div>
-
+    <div className="footer">
+      <hr class="line">
+      <p>The analysis on this site is based on <a target="_blank" href="https://www.cs.au.dk/~gerth/papers/stoc12.pdf">Strict Fibonacci Heaps</a></p>
+      <p>2019-2021 <a href="https://gongchen161.github.io/" title="Home">Gong Chen</a> </p>
+    </div>
 	</body>
 
 </html>
