@@ -53,7 +53,7 @@
 
         </ul>
 
-        <p> The design below is one possible structure suggested in the paper by using pointers only(see reference). Note this is not the only possible design, and below is intended to provide a general idea on how the above key points are possible </p>
+        <p> The design below is one possible structure suggested in the paper by using pointers only(see reference). Note this is not the only possible design, and below is intended to provide a general idea of how the above key points are possible </p>
      
       <fieldset>
         <h2> Structure In the Paper </h2>
@@ -72,12 +72,12 @@
 
          <p>If we need to perform a One or Two Nodes Loss Reduction, we just need to check if part 4 is non-empty. If a One Node Loss Reduction is performed, the target node becomes an active root, so it may need to move to part 1 or 2 -- by just following the pointer in the Rank-List. If a Two Node Loss Reduction is performed, both nodes become active nodes with loss 0, so they will be removed from the Fix-List, and we need to check if there is one remaining node with the same rank and loss 1 still in the Fix-List, if so, it should be moved to part 3.
 
-          <p>In summary, by maintaining a Fix-List, an Active Root Reduction or Loss Reduction can be found in O(1) time. And after the reduction, some nodes may need to move, but all these can be checked and done in O(1) trivially by following the pointers. Also trivially, because of the structure, nodes for Root Degree Reduction can be found by checking root's last 3 children.</p>
+          <p>In summary, by maintaining a Fix-List, an Active Root Reduction or Loss Reduction can be found in O(1) time. And after the reduction, some nodes may need to move, but all these can be checked and done in O(1) trivially by following the pointers. Also trivially, because of the structure, nodes for Root Degree Reduction can be found by checking the root's last 3 children.</p>
        
        
        <h2>Rank-List</h2>
         <p>We maintain a Rank-List in which it contains R + 1 nodes(as R is the maximum rank), each represents rank 0, 1, 2, ...R, as a linked list.</p>
-        <p> The node represents rank r in the Rank-List has a pointer to the first active root with rank r in part 1 or 2 of the Fix-List, and a pointers to the first active node with rank r and positive loss in part 3 or 4 of the Fix-List. As explained above, these two pointers allow the transfer of nodes in the Fix-List to be done in <i>O(1)</i> </p>
+        <p> The node represents rank r in the Rank-List has a pointer to the first active root with rank r in part 1 or 2 of the Fix-List, and a pointer to the first active node with rank r and positive loss in part 3 or 4 of the Fix-List. As explained above, these two pointers allow the transfer of nodes in the Fix-List to be done in <i>O(1)</i> </p>
 
 
 
