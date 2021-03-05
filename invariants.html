@@ -6,8 +6,8 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Strict Fibonacci Heap</title>
-        <script src="d3.js"></script>
-        <link rel="stylesheet" href="styles.css">
+        <script src="js/d3.js"></script>
+        <link rel="stylesheet" href="css/styles.css">
     </head>
 
     <body>
@@ -16,7 +16,7 @@
       <ul>
         <li><a href="index.html">OVERVIEW</a></li>
          <li><a href="definitions.html">DEFINITIONS</a></li>
-         <li><a href="invariants.html">INVARIANTS</a></li>
+         <li class="selected-nav"><a href="invariants.html">INVARIANTS</a></li>
          <li><a href="transformations.html">TRANSFORMATIONS</a></li>
          <li><a href="operations.html">OPERATIONS</a></li>
          <li><a href="structure.html">STRUCTURE</a></li>
@@ -37,7 +37,7 @@
     <fieldset>
     <h2> I1: For an active node, the i-th rightmost active child has <i>rank + loss &ge; i - 1 </i></h2>
 
-    <img src="i1.png" style="float:left; max-width:30%">
+    <img src="img/i1.png" style="float:left; max-width:30%">
 
     <h3> Lemma 1: If I1 is satisfied and the total loss is <i>L</i>, then the maximum rank of the tree is: <br>
     <i> r &le; logN + &radic;<span style="text-decoration:overline;">2L</span> + 2</i></h3>
@@ -90,7 +90,7 @@
 
 <fieldset>
     <h2> I3: The total number of active roots <i> &le; R + 1</i></h2>
-    <img src="i3.png" style="float:left; max-width:30%">
+    <img src="img/i3.png" style="float:left; max-width:30%">
     <p>e.g. There are 3 active roots in the tree on the left, given <i>N = 9</i>, this should be less than <i>R + 1</i>, or <i>2log(9) + 1</i></p>
 
      <h3>Lemma 4: If I1 and I2 are satisfied but I3 is violated, i.e. the number of Active roots > <i>R + 1</i>, then at least two active roots have the same rank </h3>
@@ -110,7 +110,7 @@
 </fieldset>
 <fieldset>
     <h2> I5: <i>deg(non-root nodes) &le; 2logN + 12</i></h2>
-     <img src="i5.png" style="float:left; max-width:50%">
+     <img src="img/i5.png" style="float:left; max-width:50%">
     <p> More specifically, let <i>x</i> be a non-root node, and let <i>p</i> be its position in <i>Q</i>. </p>
     <p> If <i>x</i> is a passive node or an active node with positive loss, then<br> 
      <i>deg(x) &le; 2logN(2N - p) + 9 </i></p>

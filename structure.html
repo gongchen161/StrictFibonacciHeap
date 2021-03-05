@@ -6,8 +6,8 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Strict Fibonacci Heap</title>
-        <script src="d3.js"></script>
-        <link rel="stylesheet" href="styles.css">
+        <script src="js/d3.js"></script>
+        <link rel="stylesheet" href="css/styles.css">
     </head>
 
     <body>
@@ -19,7 +19,7 @@
          <li><a href="invariants.html">INVARIANTS</a></li>
          <li><a href="transformations.html">TRANSFORMATIONS</a></li>
          <li><a href="operations.html">OPERATIONS</a></li>
-         <li><a href="structure.html">STRUCTURE</a></li>
+         <li class="selected-nav"><a href="structure.html">STRUCTURE</a></li>
          <li><a href="demo.html">VISUALIZATION</a></li>
          <li><a href="reference.html">REFERENCE</a></li>
       </ul>
@@ -57,7 +57,7 @@
      
       <fieldset>
         <h2> Structure In the Paper </h2>
-       <img src="realStructure.png" style="max-width:70%">
+       <img src="img/realStructure.png" style="max-width:70%">
 
        <h2>Fix-List</h2>
         <p>This is what makes finding Active Root Reduction and Loss Reduction in O(1) possible. We maintain a Fix-List in which it contains a linked-list of active nodes that could potentially perform the transformations. We divided it into 4 parts.</p>
@@ -91,7 +91,7 @@
 
          <h2>Heap</h2>
          <p>Every heap maintains its own Rank-List, Fix-List, root, Q, an active flag, and a pointer to the first passive child of the root(so we can insert a passive non-linkable child to the root in <i>O(1)</i> when decreasing key). When a merge happens, all nodes in the smaller heap become passive, so the new Rank-List and Fix-List is just the larger size heap. All active nodes in the same heap point to the same TRUE active flag that the heap has. And to make all nodes in a heap passive in O(1), we just need to change the active flag to FALSE. A node is considered to be active if and only if it's pointing to a TRUE active flag. A node is passive if it's pointing to null or a FALSE active flag e.g. </p>
-         <img src="makeAllPassive.png" style="max-width:40%">
+         <img src="img/makeAllPassive.png" style="max-width:40%">
 
       </fieldset>
 

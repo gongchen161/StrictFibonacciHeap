@@ -6,8 +6,8 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Strict Fibonacci Heap</title>
-        <script src="d3.js"></script>
-        <link rel="stylesheet" href="styles.css">
+        <script src="js/d3.js"></script>
+        <link rel="stylesheet" href="css/styles.css">
     </head>
 
     <body>
@@ -17,7 +17,7 @@
          <li><a href="index.html">OVERVIEW</a></li>
          <li><a href="definitions.html">DEFINITIONS</a></li>
          <li><a href="invariants.html">INVARIANTS</a></li>
-         <li><a href="transformations.html">TRANSFORMATIONS</a></li>
+         <li class="selected-nav"><a href="transformations.html">TRANSFORMATIONS</a></li>
          <li><a href="operations.html">OPERATIONS</a></li>
          <li><a href="structure.html">STRUCTURE</a></li>
          <li><a href="demo.html">VISUALIZATION</a></li>
@@ -34,7 +34,7 @@
       <p>Sometimes, the 5 invariants will get violated in heap operations, and we can perform below transformations to restore the properties</p>
      <fieldset>
       <h2>Link</h2>
-      <img src="link.png" style="float:left; max-width:40%">
+      <img src="img/link.png" style="float:left; max-width:40%">
       <h3>Link node <b>x</b> and <b>y</b></h3>
       <ul>
         <li>remove x from its original parent</li>
@@ -48,7 +48,7 @@
 
      <fieldset>
       <h2>Active Root Reduction</h2>
-      <img src="activeRootReduction.png" style="float:left; max-width:40%">
+      <img src="img/activeRootReduction.png" style="float:left; max-width:40%">
       <h3>Performed on two active roots <i>x</i> and <i>y</i> with equal rank <i>r</i></h3>
       <ul>
         <li>Compare x and y, <i>w.l.o.g.</i> assume y < x</li>
@@ -82,7 +82,7 @@
 
      <fieldset>
       <h2>Root Degree Reduction</h2>
-      <img src="rootDegreeReduction.png" style="float:left; max-width:40%">
+      <img src="img/rootDegreeReduction.png" style="float:left; max-width:40%">
       <h3>Performed on the three rightmost passive linkable children <i>x, y, z</i> of the <i>root</i></h3>
       <ul>
         <li>Assume, <i>w.l.o.g x < y < z</i></li>
@@ -116,7 +116,7 @@
 
      <fieldset>
       <h2>One Node Loss Reduction</h2>
-      <img src="oneNodeLossReduction.png" style="float:left; max-width:40%">
+      <img src="img/oneNodeLossReduction.png" style="float:left; max-width:40%">
      <h3>Performed on an active node <i>x</i> with loss 2</h3>
       <ul>
         <li>Link <i>x</i> to the root. <i>x</i> is now an active root, thus it has loss 0 now</li>
@@ -149,7 +149,7 @@
 
       <fieldset>
       <h2>Two Node Loss Reduction</h2>
-      <img src="twoNodeLossReduction.png" style="float:left; max-width:40%">
+      <img src="img/twoNodeLossReduction.png" style="float:left; max-width:40%">
        <h3>Performed on two active nodes <i>x, y</i> with equal rank <i>r</i> and loss == 1</h3>
       <ul>
         <li><i>w.l.o.g, x < y</i></li>
@@ -179,7 +179,7 @@
 
  <fieldset>
       <h2>Summary</h2>
-      <img src="transformationSummary.png" style= "max-width:70%">
+      <img src="img/transformationSummary.png" style= "max-width:70%">
 
       <p>Note, from the above analysis and the summary in the chart, we can conclude no transformations can break I1, I2 and I5. And if we perform Active Root Reduction with Root Degree Reduction (with One or Two Nodes Loss Reduction), no transformations can violate I1 to I5.</p>
 

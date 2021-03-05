@@ -6,8 +6,8 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Strict Fibonacci Heap</title>
-        <script src="d3.js"></script>
-        <link rel="stylesheet" href="styles.css">
+        <script src="js/d3.js"></script>
+        <link rel="stylesheet" href="css/styles.css">
     </head>
 
     <body>
@@ -18,7 +18,7 @@
          <li><a href="definitions.html">DEFINITIONS</a></li>
          <li><a href="invariants.html">INVARIANTS</a></li>
          <li><a href="transformations.html">TRANSFORMATIONS</a></li>
-         <li><a href="operations.html">OPERATIONS</a></li>
+         <li class="selected-nav"><a href="operations.html">OPERATIONS</a></li>
          <li><a href="structure.html">STRUCTURE</a></li>
          <li><a href="demo.html">VISUALIZATION</a></li>
          <li><a href="reference.html">REFERENCE</a></li>
@@ -40,7 +40,7 @@
 
         <fieldset>
         <h2>Decrease Key - O(1) Worst Case</h2>
-        <img src="decreaseKey.png" style="float:left; max-width:40%">
+        <img src="img/decreaseKey.png" style="float:left; max-width:40%">
         <h3>To decrease the key of node x to v</h3>
         <ol>
           <li>If x is the root - DONE</li>
@@ -76,7 +76,7 @@
 
         <fieldset>
         <h2>Merge - O(1) Worst Case</h2>
-        <img src="merge.png" style="float:left; max-width:50%">
+        <img src="img/merge.png" style="float:left; max-width:50%">
         <h3> To merge H1 and H2, and <i>w.l.o.g</i> assume size(H1) &le; Size(H2)</h3>
         <ol>
           <li>Make all nodes in H1 passive - This can be done in <i>O(1)</i> and will be shown in the next section</li>
@@ -133,7 +133,7 @@
 
       <fieldset>
         <h2>DeleteMin - O(LogN) Worst Case</h2>
-        <img src="deleteMin.png" style="float:left; max-width:40%">
+        <img src="img/deleteMin.png" style="float:left; max-width:40%">
         <ol>
           <li>Scan through the children of the root and find node x with the minimum value</li>
           <li>Make x passive</li>

@@ -6,8 +6,8 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Strict Fibonacci Heap</title>
-        <script src="d3.js"></script>
-        <link rel="stylesheet" href="styles.css">
+        <script src="js/d3.js"></script>
+        <link rel="stylesheet" href="css/styles.css">
     </head>
 
     <body>
@@ -15,7 +15,7 @@
     <div id = nav>
       <ul>
          <li><a href="index.html">OVERVIEW</a></li>
-         <li><a href="definitions.html">DEFINITIONS</a></li>
+         <li class="selected-nav"><a href="definitions.html">DEFINITIONS</a></li>
          <li><a href="invariants.html">INVARIANTS</a></li>
          <li><a href="transformations.html">TRANSFORMATIONS</a></li>
          <li><a href="operations.html">OPERATIONS</a></li>
@@ -33,7 +33,7 @@
      
      <fieldset>
       <h2> Rank</h2>
-      <img src="rank.png" style="float:left; max-width:30%">
+      <img src="img/rank.png" style="float:left; max-width:30%">
       <ul>
         <li><p>Number of <i>Active/White</i> children</p></li>
         <li><p>Only defined for <i>Active/White</i> nodes</p></li>
@@ -44,7 +44,7 @@
 
       <fieldset>
       <h2>Active Root</h2>
-      <img src="activeRoot.png" style="float:left; max-width:30%">
+      <img src="img/activeRoot.png" style="float:left; max-width:30%">
       <ul>
         <li><p>A special kind of <i>Active/White</i> node -- an <i>Active/White</i> node with <i>Passive/Red</i> parent</p></li>
         <li><p>e.g. node 2, 7, 8 are active roots</p></li>
@@ -54,7 +54,7 @@
 
       <fieldset>
       <h2>Loss</h2>
-      <img src="loss.png" style="float:left; max-width:30%">
+      <img src="img/loss.png" style="float:left; max-width:30%">
       <ul>
         <li><p>Number of children lost</p></li>
         <li><p>Only defined for <i>Active/White</i> nodes</p></li>
@@ -66,7 +66,7 @@
 
       <fieldset>
       <h2>Passive Linkable Node</h2>
-      <img src="linkable.png" style="float:left; max-width:30%">
+      <img src="img/linkable.png" style="float:left; max-width:30%">
       <ul>
         <li><p>A node where all its children and itself are <i>Passive/Red</i></p></li>
         <li><p>All Passive Linkable Nodes are the rightmost children in the tree</p></li>
@@ -79,7 +79,7 @@
 
      <fieldset>
       <h2>Queue(Q)</h2>
-      <img src="queue.png" style="float:left; max-width:30%">
+      <img src="img/queue.png" style="float:left; max-width:30%">
       <ul>
         <li><p>All non-root nodes are maintained in a <i>Queue(Q)</i> with position <i>p</i></p></li>
          <li><p>e.g. Node 7 is in position 1, Node 9 is in position 7</p></li>

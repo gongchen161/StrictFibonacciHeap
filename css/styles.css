@@ -136,3 +136,8 @@ div.tooltip {
   border-radius: 50%;
   display: inline-block;
 }
+
+.selected-nav {
+  background-color: #f3d389;
+  color: white;
+}

@@ -6,15 +6,15 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Strict Fibonacci Heap</title>
-        <script src="d3.js"></script>
-        <link rel="stylesheet" href="styles.css">
+        <script src="js/d3.js"></script>
+        <link rel="stylesheet" href="css/styles.css">
     </head>
 
     <body>
 
     <div id ="nav">
       <ul>
-         <li><a href="index.html">OVERVIEW</a></li>
+         <li class="selected-nav"><a href="index.html">OVERVIEW</a></li>
          <li><a href="definitions.html">DEFINITIONS</a></li>
          <li><a href="invariants.html">INVARIANTS</a></li>
          <li><a href="transformations.html">TRANSFORMATIONS</a></li>
@@ -35,11 +35,11 @@
       <fieldset>
         <h2>Time Complexities</h2>
          <p><a target="_blank" href="https://www.cs.au.dk/~gerth/papers/stoc12.pdf">Strict Fibonacci Heap (Brodal, Lagogiannis & Tarjan, 2012)</a> is the first heap structure that uses pointer-based heap implementation to match the time complexities of Fibonacci Heap in the <b>worst case</b>, as shown in the chart below:</p>
-        <img src="time.png">
+        <img src="img/time.png">
       </fieldset>
       <fieldset>
         <h2> Basic Structure</h2>
-       <img src="tree.png" style="float:left; max-width:30%">
+       <img src="img/tree.png" style="float:left; max-width:30%">
         <ul>
           <li><p>Single heap-ordered tree with N nodes</p></li>
           <li><p>Self-adjusting through transformations to keep the tree in the desirable structure</p></li>
